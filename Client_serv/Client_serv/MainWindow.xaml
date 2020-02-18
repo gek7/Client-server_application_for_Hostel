@@ -25,7 +25,7 @@
             <MenuItem Header="Справочники">
                 <MenuItem Header="Корпуса" Click="Table_building_Click"/>
                 <MenuItem Header="Комнаты" Click="table_rooms_Click"/>
-                <MenuItem Header="Студенты" Click="table_students_Click"/>
+                <MenuItem Header="Студенты"/>
             </MenuItem>
             <MenuItem x:Name="close_app" Header="Выход" Click="close_app_Click"/>
         </Menu>
@@ -70,7 +70,7 @@
                 </Grid>
             </Button>
 
-            <Button x:Name="table_people" Margin="5,0,0,0" Width="70">
+            <Button x:Name="table_people" Margin="5,0,0,0" Width="70" Click="table_people_Click">
                 <Grid Height="60">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"/>
@@ -81,7 +81,7 @@
                 </Grid>
             </Button>
 
-            <Button  Margin="5,0,0,0" Width="70" Click="table_students_Click">
+            <Button  Margin="5,0,0,0" Width="70">
                 <Grid Height="60">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"/>

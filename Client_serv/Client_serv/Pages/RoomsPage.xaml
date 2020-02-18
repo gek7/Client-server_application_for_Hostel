@@ -9,20 +9,23 @@
       Title="Комнаты">
 
     <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="638*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Margin="0,3,0,3">
+        <StackPanel Orientation="Horizontal" Margin="0,3,0,3" Grid.ColumnSpan="2">
             <Button x:Name="BtnAdd" Content="Добавить" Width="70" Margin="5,0,0,0" Click="add_Click"/>
             <Button x:Name="BtnCopy" Content="Копировать" Width="70" Margin="5,0,0,0" Click="copy_Click"/>
             <Button x:Name="BtnEdit" Content="Изменить" Width="70" Margin="5,0,0,0" Click="Edit_Click"/>
             <Button x:Name="BtnDelete" Content="Удалить" Width="70" Margin="5,0,0,0" Click="Delete_Click"/>
         </StackPanel>
-        <Button x:Name="BtnClosePage" HorizontalAlignment="Right" Click="BtnClosePage_Click">
-            <Image Source="pack://application:,,,/Images/close.png" Width="20" Height="20"/>
+        <Button x:Name="BtnClosePage" HorizontalAlignment="Right" Click="BtnClosePage_Click" Grid.Column="1">
+            <Image Source="/Images/close.png" Width="20" Height="20"/>
         </Button>
-        <DataGrid x:Name="dg" Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding}" IsReadOnly="True">
+        <DataGrid x:Name="dg" Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding}" IsReadOnly="True" Grid.Column="0">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Корпус" Width="*" Binding="{Binding Path=Building}"/>
                 <DataGridTextColumn Header="Номер" Binding="{Binding Path=Num}" Width="*"/>

@@ -28,8 +28,7 @@ namespace Client_serv
         public DbSet<Buildings> Buildings { get; set; }
         public DbSet<Contracts> Contracts { get; set; }
         public DbSet<Groups> Groups { get; set; }
-        public DbSet<Images> Images { get; set; }
-        public DbSet<Peoples> Peoples { get; set; }
+        public DbSet<People> People { get; set; }
         public DbSet<Posts> Posts { get; set; }
         public DbSet<Rooms> Rooms { get; set; }
         public DbSet<RoomTypes> RoomTypes { get; set; }

@@ -42,6 +42,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -76,6 +77,9 @@
     <Compile Include="Dialogs\GroupsDialog.xaml.cs">
       <DependentUpon>GroupsDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\PeopleDialog.xaml.cs">
+      <DependentUpon>PeopleDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\PostsDialog.xaml.cs">
       <DependentUpon>PostsDialog.xaml</DependentUpon>
     </Compile>
@@ -100,9 +104,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>HOSTEL.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Images.cs">
-      <DependentUpon>HOSTEL.tt</DependentUpon>
-    </Compile>
     <Compile Include="Ipage.cs" />
     <Compile Include="Pages\BuildingsPage.xaml.cs">
       <DependentUpon>BuildingsPage.xaml</DependentUpon>
@@ -110,10 +111,13 @@
     <Compile Include="Pages\GroupsPage.xaml.cs">
       <DependentUpon>GroupsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\PeoplePage.xaml.cs">
+      <DependentUpon>PeoplePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\RoomsPage.xaml.cs">
       <DependentUpon>RoomsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Peoples.cs">
+    <Compile Include="People.cs">
       <DependentUpon>HOSTEL.tt</DependentUpon>
     </Compile>
     <Compile Include="Posts.cs">
@@ -145,6 +149,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Dialogs\PeopleDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\PostsDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -158,6 +166,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\GroupsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PeoplePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -263,6 +275,7 @@
       <DependentUpon>HOSTEL.edmx</DependentUpon>
       <LastGenOutput>HOSTEL.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\unknownImage.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

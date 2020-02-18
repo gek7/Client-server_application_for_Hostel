@@ -12,9 +12,9 @@ namespace Client_serv
     using System;
     using System.Collections.Generic;
     
-    public partial class Peoples
+    public partial class People
     {
-        public Peoples()
+        public People()
         {
             this.Contracts = new HashSet<Contracts>();
             this.Students = new HashSet<Students>();
@@ -28,10 +28,9 @@ namespace Client_serv
         public string PspNum { get; set; }
         public string PhoneNum { get; set; }
         public string Email { get; set; }
-        public Nullable<int> ImageID { get; set; }
+        public byte[] ImageData { get; set; }
     
         public virtual ICollection<Contracts> Contracts { get; set; }
-        public virtual Images Images { get; set; }
         public virtual Sexes Sexes { get; set; }
         public virtual ICollection<Students> Students { get; set; }
         public virtual ICollection<Workers> Workers { get; set; }

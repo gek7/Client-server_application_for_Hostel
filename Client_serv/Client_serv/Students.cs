@@ -21,6 +21,6 @@ namespace Client_serv
         public Nullable<System.DateTime> Finished { get; set; }
     
         public virtual Groups Groups { get; set; }
-        public virtual Peoples Peoples { get; set; }
+        public virtual People People { get; set; }
     }
 }

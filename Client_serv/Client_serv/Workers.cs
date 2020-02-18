@@ -20,7 +20,7 @@ namespace Client_serv
         public Nullable<int> PostID { get; set; }
         public Nullable<System.DateTime> Finished { get; set; }
     
-        public virtual Peoples Peoples { get; set; }
+        public virtual People People { get; set; }
         public virtual Posts Posts { get; set; }
     }
 }

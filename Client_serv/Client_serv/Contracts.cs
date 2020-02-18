@@ -25,7 +25,7 @@ namespace Client_serv
         public Nullable<int> RoomID { get; set; }
         public Nullable<System.DateTime> AppDate { get; set; }
     
-        public virtual Peoples Peoples { get; set; }
+        public virtual People People { get; set; }
         public virtual Rooms Rooms { get; set; }
     }
 }

@@ -30,7 +30,7 @@ namespace Client_serv
     {
         DispatcherTimer timeTimer = new DispatcherTimer();
         public TabControl MainTabControl { get; }
-        public static string connectionString = "Data Source=41-03;Initial Catalog=HOSTEL;Integrated Security=True";
+        public static string connectionString = "Data Source=DESKTOP-CS9U3G2;Initial Catalog=HOSTEL;Integrated Security=True";
         public MainWindow()
         {
             InitializeComponent();
@@ -56,11 +56,6 @@ namespace Client_serv
             p.Margin = new Thickness(0, 10, 0, 0);
             f.Navigate(p);
             pages.Items.Add(t);
-        }
-
-        private void table_students_Click(object sender, RoutedEventArgs e)
-        {
-
         }
         private void close_app_Click(object sender, RoutedEventArgs e)
         {
@@ -97,9 +92,20 @@ namespace Client_serv
             t.Header = "Корпуса";
             Frame f = new Frame();
             BuildingsPage b = new BuildingsPage(this);
-            
             f.Navigate(b);
             t.Content = f;
+            pages.Items.Add(t);
+        }
+
+        private void table_people_Click(object sender, RoutedEventArgs e)
+        {
+            TabItem t = new TabItem();
+            t.Header = "Люди";
+            Frame f = new Frame();
+            t.Content = f;
+            PeoplePage p = new PeoplePage(this);
+            p.Margin = new Thickness(0, 10, 0, 0);
+            f.Navigate(p);
             pages.Items.Add(t);
         }
         #endregion

@@ -16,12 +16,12 @@ namespace Client_serv
     {
         public Sexes()
         {
-            this.Peoples = new HashSet<Peoples>();
+            this.People = new HashSet<People>();
         }
     
         public int SexID { get; set; }
         public string Sex { get; set; }
     
-        public virtual ICollection<Peoples> Peoples { get; set; }
+        public virtual ICollection<People> People { get; set; }
     }
 }
