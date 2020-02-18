@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="223da6c18e8d41088280cb2c0c59a3f9" Name="Diagram1">
+        <EntityTypeShape EntityType="HOSTELModel.Buildings" Width="1.5" PointX="0.75" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="HOSTELModel.Contracts" Width="1.5" PointX="5.25" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HOSTELModel.Groups" Width="1.5" PointX="6" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HOSTELModel.Images" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HOSTELModel.Peoples" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HOSTELModel.Posts" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HOSTELModel.Rooms" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HOSTELModel.RoomTypes" Width="1.5" PointX="0.75" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HOSTELModel.Sexes" Width="1.5" PointX="0.75" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HOSTELModel.Students" Width="1.5" PointX="8.25" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HOSTELModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HOSTELModel.Workers" Width="1.5" PointX="5.25" PointY="0.875" IsExpanded="true" />
+        <AssociationConnector Association="HOSTELModel.FK_Rooms_Buildings" ManuallyRouted="false" />
+        <AssociationConnector Association="HOSTELModel.FK_Contracts_Peoples" ManuallyRouted="false" />
+        <AssociationConnector Association="HOSTELModel.FK_Contracts_Rooms" ManuallyRouted="false" />
+        <AssociationConnector Association="HOSTELModel.FK_Students_Groups" ManuallyRouted="false" />
+        <AssociationConnector Association="HOSTELModel.FK_Peoples_Images" ManuallyRouted="false" />
+        <AssociationConnector Association="HOSTELModel.FK_People_Sex" ManuallyRouted="false" />
+        <AssociationConnector Association="HOSTELModel.FK_Students_Peoples" ManuallyRouted="false" />
+        <AssociationConnector Association="HOSTELModel.FK_Workers_Peoples" ManuallyRouted="false" />
+        <AssociationConnector Association="HOSTELModel.FK_Workers_Posts" ManuallyRouted="false" />
+        <AssociationConnector Association="HOSTELModel.FK_Rooms_RoomTypes" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

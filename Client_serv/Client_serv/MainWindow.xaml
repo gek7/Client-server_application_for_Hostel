@@ -1,0 +1,136 @@
+﻿<Window x:Class="Client_serv.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Client_serv"
+        mc:Ignorable="d"
+        Title="Главное окно приложения основанного на Pages (demo)" Height="500" Width="800" MinWidth="715" MinHeight="325">
+    <Grid x:Name="gr">
+
+        <!-- Кол-во строк -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <!--
+            'auto' = Высота строки равна высоте самого высокого компонента
+            '*' = Заполняет всё оставшееся пространство (Если строк звёздочек несколько, 
+            то место между ними делится равномерно)
+        -->
+
+        <Menu Grid.Row="0"  VerticalAlignment="Top">
+            <MenuItem Header="Справочники">
+                <MenuItem Header="Корпуса" Click="Table_building_Click"/>
+                <MenuItem Header="Комнаты" Click="table_rooms_Click"/>
+                <MenuItem Header="Студенты" Click="table_students_Click"/>
+            </MenuItem>
+            <MenuItem x:Name="close_app" Header="Выход" Click="close_app_Click"/>
+        </Menu>
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Button  Margin="5,0,0,0" Width="70" >
+                <Grid Height="60">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="20"/>
+                    </Grid.RowDefinitions>
+                    <Image Source="Images/table_contracts.png" Width="35" Height="40" Grid.Row="0"/>
+                    <TextBlock Text="Договора"  HorizontalAlignment="Center" Grid.Row="1"/>
+                </Grid>
+            </Button>
+
+            <!--
+            В WPF есть возможность в один компонент помещать другие. 
+            Тут в кнопку вложен контейнер компоновки Grid(Сетка), Он поделён на 2 строки
+            1-ая строка равная 40 пикселям - это картинка
+            2-ая строка равная 20 пикселям - это текст
+            -->
+
+            <Button x:Name="Table_building" Margin="5,0,0,0" Width="70" Click="Table_building_Click">
+                <Grid Height="60">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="20"/>
+                    </Grid.RowDefinitions>
+                    <Image Source="Images/table_buildings.png" Width="35" Height="40" Grid.Row="0"  />
+                    <TextBlock Text="Корпуса"  HorizontalAlignment="Center" Grid.Row="1"/>
+                </Grid>
+            </Button>
+
+            <Button   Margin="5,0,0,0" Click="table_rooms_Click" Width="70">
+                <Grid Height="60">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="20"/>
+                    </Grid.RowDefinitions>
+                    <Image Source="Images/table_rooms.png" Width="35" Height="40" Grid.Row="0"  />
+                    <TextBlock Text="Комнаты"  HorizontalAlignment="Center" Grid.Row="1"/>
+                </Grid>
+            </Button>
+
+            <Button x:Name="table_people" Margin="5,0,0,0" Width="70">
+                <Grid Height="60">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="20"/>
+                    </Grid.RowDefinitions>
+                    <Image Source="Images/table_people.png" Width="35" Height="40" Grid.Row="0"  />
+                    <TextBlock Text="Люди"  HorizontalAlignment="Center" Grid.Row="1"/>
+                </Grid>
+            </Button>
+
+            <Button  Margin="5,0,0,0" Width="70" Click="table_students_Click">
+                <Grid Height="60">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="20"/>
+                    </Grid.RowDefinitions>
+                    <Image Source="Images/table_students.png" Width="35" Height="40" Grid.Row="0"  />
+                    <TextBlock Text="Студенты"  HorizontalAlignment="Center" Grid.Row="1"/>
+                </Grid>
+            </Button>
+
+            <Button  Margin="5,0,0,0" Width="70" >
+                <Grid Height="60">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="20"/>
+                    </Grid.RowDefinitions>
+                    <Image Source="Images/table_employees.png" Width="35" Height="40" Grid.Row="0"  />
+                    <TextBlock Text="Работники"  HorizontalAlignment="Center" Grid.Row="1"/>
+                </Grid>
+            </Button>
+            <Button x:Name="BtnGroups"  Margin="5,0,0,0" Width="70" Click="BtnGroups_Click" >
+                <Grid Height="60">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="20"/>
+                    </Grid.RowDefinitions>
+                    <Image Source="Images/table_groups.png" Width="35" Height="40" Grid.Row="0"  />
+                    <TextBlock Text="Группы"  HorizontalAlignment="Center" Grid.Row="1"/>
+                </Grid>
+            </Button>
+
+            <Button x:Name="Table_posts"  Margin="5,0,0,0" Width="70" Click="Table_posts_Click">
+                <Grid Height="60">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="20"/>
+                    </Grid.RowDefinitions>
+                    <Image Source="Images/table_posts.png" Width="35" Height="40" Grid.Row="0"  />
+                    <TextBlock Text="Должности"  HorizontalAlignment="Center" Grid.Row="1"/>
+                </Grid>
+            </Button>
+            
+        </StackPanel>
+        <TabControl Grid.Row="2" TabStripPlacement="Bottom" Name="pages">
+        </TabControl>
+        <StatusBar Grid.Row="3" Height="20" VerticalAlignment="Bottom">
+            <StatusBarItem HorizontalAlignment="Right">
+                <TextBlock x:Name="CurTime" Text="time" VerticalAlignment="Center"/>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>
