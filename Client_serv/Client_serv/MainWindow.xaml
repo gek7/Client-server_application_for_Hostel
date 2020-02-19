@@ -125,7 +125,7 @@
             </Button>
             
         </StackPanel>
-        <TabControl Grid.Row="2" TabStripPlacement="Bottom" Name="pages">
+        <TabControl  Grid.Row="2" TabStripPlacement="Bottom" Name="pages" SelectionChanged="pages_SelectionChanged">
         </TabControl>
         <StatusBar Grid.Row="3" Height="20" VerticalAlignment="Bottom">
             <StatusBarItem HorizontalAlignment="Right">

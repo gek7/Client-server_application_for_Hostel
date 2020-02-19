@@ -24,6 +24,9 @@ namespace Client_serv.Pages
     public partial class RoomsPage : Page,Ipage
     {
         MainWindow OwnerPage;
+
+        public DataGrid PageDataGrid => dg;
+
         public RoomsPage()
         {
             InitializeComponent();
@@ -121,6 +124,11 @@ namespace Client_serv.Pages
         private void BtnClosePage_Click(object sender, RoutedEventArgs e)
         {
             OwnerPage.pages.Items.Remove(OwnerPage.pages.SelectedItem);
+        }
+
+        private void dg_Sorting(object sender, DataGridSortingEventArgs e)
+        {
+           
         }
     }
 }

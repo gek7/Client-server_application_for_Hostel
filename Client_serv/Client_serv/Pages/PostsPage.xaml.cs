@@ -22,6 +22,7 @@ namespace Client_serv
 
     public partial class PostsPage : Page,Ipage
     {
+        public DataGrid PageDataGrid => dg;
         MainWindow OwnerPage;
         public PostsPage()
         {

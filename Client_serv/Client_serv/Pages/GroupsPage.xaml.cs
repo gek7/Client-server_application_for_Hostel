@@ -25,6 +25,7 @@ namespace Client_serv.Pages
     /// </summary>
     public partial class GroupsPage : Page,Ipage 
     {
+        public DataGrid PageDataGrid => dg;
         MainWindow OwnerPage;
         public GroupsPage()
         {

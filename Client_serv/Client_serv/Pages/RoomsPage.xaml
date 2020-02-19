@@ -25,7 +25,7 @@
         <Button x:Name="BtnClosePage" HorizontalAlignment="Right" Click="BtnClosePage_Click" Grid.Column="1">
             <Image Source="/Images/close.png" Width="20" Height="20"/>
         </Button>
-        <DataGrid x:Name="dg" Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding}" IsReadOnly="True" Grid.Column="0">
+        <DataGrid x:Name="dg" Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding}" IsReadOnly="True" Grid.Column="0" Sorting="dg_Sorting">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Корпус" Width="*" Binding="{Binding Path=Building}"/>
                 <DataGridTextColumn Header="Номер" Binding="{Binding Path=Num}" Width="*"/>
