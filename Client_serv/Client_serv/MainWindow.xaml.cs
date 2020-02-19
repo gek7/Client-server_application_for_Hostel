@@ -136,6 +136,18 @@ namespace Client_serv
             t.Content = f;
             pages.Items.Add(t);
         }
+
+        private void Table_RoomTypes_Click(object sender, RoutedEventArgs e)
+        {
+            TabItem t = new TabItem();
+            t.Header = "Виды комнат";
+            Frame f = new Frame();
+            RoomTypesPage p = new RoomTypesPage(this);
+            p.Margin = new Thickness(0, 10, 0, 0);
+            f.Navigate(p);
+            t.Content = f;
+            pages.Items.Add(t);
+        }
         #endregion
 
         // Событие, срабатывающее при смене вкладки (Нужно, чтобы оставалась сортировка)

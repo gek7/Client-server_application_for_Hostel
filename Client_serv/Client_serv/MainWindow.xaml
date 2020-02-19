@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Client_serv"
         mc:Ignorable="d"
-        Title="Главное окно приложения основанного на Pages (demo)" Height="500" Width="800" MinWidth="715" MinHeight="325">
+        Title="Главное окно приложения основанного на Pages (demo)" Height="500" Width="900" MinWidth="900" MinHeight="325">
     <Grid x:Name="gr">
 
         <!-- Кол-во строк -->
@@ -30,7 +30,7 @@
             <MenuItem x:Name="close_app" Header="Выход" Click="close_app_Click"/>
         </Menu>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
-            <Button  Margin="5,0,0,0" Width="70" >
+            <Button  Margin="5,0,0,0" Width="80" >
                 <Grid Height="60">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"/>
@@ -48,7 +48,7 @@
             2-ая строка равная 20 пикселям - это текст
             -->
 
-            <Button x:Name="Table_building" Margin="5,0,0,0" Width="70" Click="Table_building_Click">
+            <Button x:Name="Table_building" Margin="5,0,0,0" Width="80" Click="Table_building_Click">
                 <Grid Height="60">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"/>
@@ -59,7 +59,7 @@
                 </Grid>
             </Button>
 
-            <Button   Margin="5,0,0,0" Click="table_rooms_Click" Width="70">
+            <Button   Margin="5,0,0,0" Click="table_rooms_Click" Width="80">
                 <Grid Height="60">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"/>
@@ -70,18 +70,29 @@
                 </Grid>
             </Button>
 
-            <Button x:Name="table_people" Margin="5,0,0,0" Width="70" Click="table_people_Click">
+            <Button x:Name="Table_RoomTypes"  Margin="5,0,0,0" Width="80" Click="Table_RoomTypes_Click">
                 <Grid Height="60">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="20"/>
                     </Grid.RowDefinitions>
-                    <Image Source="Images/table_people.png" Width="35" Height="40" Grid.Row="0"  />
+                    <Image Source="Images/table_roomTypes.png" Width="35" Height="40" Grid.Row="0"  />
+                    <TextBlock Text="Виды комнат" HorizontalAlignment="Center" Grid.Row="1"/>
+                </Grid>
+            </Button>
+
+            <Button x:Name="table_people" Margin="5,0,0,0" Width="80" Click="table_people_Click">
+                <Grid Height="60">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="20"/>
+                    </Grid.RowDefinitions>
+                    <Image Source="Images/table_people.png" Width="80" Height="40" Grid.Row="0"  />
                     <TextBlock Text="Люди"  HorizontalAlignment="Center" Grid.Row="1"/>
                 </Grid>
             </Button>
 
-            <Button  Margin="5,0,0,0" Width="70">
+            <Button  Margin="5,0,0,0" Width="80">
                 <Grid Height="60">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"/>
@@ -92,7 +103,7 @@
                 </Grid>
             </Button>
 
-            <Button  Margin="5,0,0,0" Width="70" >
+            <Button  Margin="5,0,0,0" Width="80" >
                 <Grid Height="60">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"/>
@@ -102,7 +113,7 @@
                     <TextBlock Text="Работники"  HorizontalAlignment="Center" Grid.Row="1"/>
                 </Grid>
             </Button>
-            <Button x:Name="BtnGroups"  Margin="5,0,0,0" Width="70" Click="BtnGroups_Click" >
+            <Button x:Name="BtnGroups"  Margin="5,0,0,0" Width="80" Click="BtnGroups_Click" >
                 <Grid Height="60">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"/>
@@ -113,7 +124,7 @@
                 </Grid>
             </Button>
 
-            <Button x:Name="Table_posts"  Margin="5,0,0,0" Width="70" Click="Table_posts_Click">
+            <Button x:Name="Table_posts"  Margin="5,0,0,0" Width="80" Click="Table_posts_Click">
                 <Grid Height="60">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"/>
@@ -123,7 +134,6 @@
                     <TextBlock Text="Должности"  HorizontalAlignment="Center" Grid.Row="1"/>
                 </Grid>
             </Button>
-            
         </StackPanel>
         <TabControl  Grid.Row="2" TabStripPlacement="Bottom" Name="pages" SelectionChanged="pages_SelectionChanged">
         </TabControl>

@@ -86,6 +86,9 @@
     <Compile Include="Dialogs\RoomsDialog.xaml.cs">
       <DependentUpon>RoomsDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\RoomTypesDialog.xaml.cs">
+      <DependentUpon>RoomTypesDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Groups.cs">
       <DependentUpon>HOSTEL.tt</DependentUpon>
     </Compile>
@@ -116,6 +119,9 @@
     </Compile>
     <Compile Include="Pages\RoomsPage.xaml.cs">
       <DependentUpon>RoomsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\RoomTypesPage.xaml.cs">
+      <DependentUpon>RoomTypesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="People.cs">
       <DependentUpon>HOSTEL.tt</DependentUpon>
@@ -161,6 +167,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Dialogs\RoomTypesDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\BuildingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -193,6 +203,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Pages\RoomsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\RoomTypesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -275,6 +289,7 @@
       <DependentUpon>HOSTEL.edmx</DependentUpon>
       <LastGenOutput>HOSTEL.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\table_roomTypes.png" />
     <Resource Include="Images\unknownImage.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
