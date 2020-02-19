@@ -28,7 +28,7 @@ namespace Client_serv.Pages
         {
             InitializeComponent();
         }
-        public BuildingsPage(MainWindow owner) : this()
+        public BuildingsPage(object owner) : this()
         {
             updateGrid();
             OwnerPage = owner;

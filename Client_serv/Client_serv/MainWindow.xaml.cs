@@ -128,23 +128,19 @@ namespace Client_serv
 
         private void Table_posts_Click(object sender, RoutedEventArgs e)
         {
-            // Объявляем новую вкладку (Которая не относится ни к одному TabControl)
-            TabItem t = new TabItem();
-            // Изменяем название вкладки
-            t.Header = "Должности";
-            // Объявляем Frame, чтобы в него поместить страницу (страница содержит таблицу данных), Frame является своеобразным хранителем страниц
-            Frame f = new Frame();
-
-            // Создаём экземпляр страницы PostsPage
-            PostsPage p = new PostsPage(this);
-            // Устанавливаем отступ для страницы
-            p.Margin = new Thickness(0, 10, 0, 0);
-            // Передаём эту страницу во Frame
-            f.Navigate(p);
-            // В недавно созданную вкладку кладём новый Frame
-            t.Content = f;
-            // В TabControl добавляем новую вкладку
-            pages.Items.Add(t);
+            Frame f = GetFreePlaceInMultiPage();
+            if (f!=null)
+            {
+                        PostsPage p = new PostsPage(f);
+                        f.Navigate(p);
+                        return;
+                  
+            }
+            else
+            {
+                PostsPage p = new PostsPage(this) { Margin = new Thickness(0, 10, 0, 0) }; ;
+                AddNewTab<PostsPage>(sender,p);
+            }
         }
 
         private void BtnGroups_Click(object sender, RoutedEventArgs e)
@@ -199,8 +195,8 @@ namespace Client_serv
             TabItem t = new TabItem();
             t.Header = "МультиТаблица";
             Frame f = new Frame();
+            f.NavigationUIVisibility = NavigationUIVisibility.Hidden;
             MultiPage p = new MultiPage();
-            p.Margin = new Thickness(0, 10, 0, 0);
             f.Navigate(p);
             t.Content = f;
             pages.Items.Add(t);
@@ -223,6 +219,29 @@ namespace Client_serv
             t.Content = f;
             // В TabControl добавляем новую вкладку
             pages.Items.Add(t);
+        }
+
+       // Если сейчас открыта вкладка с двумя таблицами, и какой-либо Frame свободен, то вернуть ссылку на свободный Frame
+       private Frame GetFreePlaceInMultiPage()
+       {
+            // В bufFrame хранится ссылка на Frame, который находится в открытой вкладке, иначе null
+            //зачем нужно выражение '?.' - https://metanit.com/sharp/tutorial/3.26.php
+            Frame bufFrame = ((pages.SelectedItem as TabItem)?.Content as Frame);
+            if ((pages.Items.Count > 0) && (bufFrame.Content is MultiPage))
+            {
+                MultiPage mul = bufFrame.Content as MultiPage;
+                Grid g = (mul.Content as Grid).Children[1] as Grid;
+                foreach (var i in g.Children)
+                {
+                    if ( i is Frame && (i as Frame).Content == null)
+                    {
+                        PostsPage p = new PostsPage(i as Frame);
+                        (i as Frame).Navigate(p);
+                        return i as Frame;
+                    }
+                }
+            }
+            return null;
         }
     }
 }

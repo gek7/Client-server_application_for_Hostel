@@ -23,12 +23,12 @@ namespace Client_serv
     public partial class PostsPage : Page,Ipage
     {
         public DataGrid PageDataGrid => dg;
-        MainWindow OwnerPage;
+        object OwnerPage;
         public PostsPage()
         {
             InitializeComponent();
         }
-        public PostsPage(MainWindow owner) :this()
+        public PostsPage(object owner) :this()
         {
             updateGrid();
             OwnerPage = owner;
@@ -105,7 +105,16 @@ namespace Client_serv
 
         private void BtnClosePage_Click(object sender, RoutedEventArgs e)
         {
-            OwnerPage.pages.Items.Remove(OwnerPage.pages.SelectedItem);
+            if (OwnerPage is MainWindow)
+            {
+                MainWindow owner = OwnerPage as MainWindow;
+                owner.pages.Items.Remove(owner.pages.SelectedItem);
+            }
+            else if( OwnerPage is Frame)
+            {
+                Frame owner = OwnerPage as Frame;
+                owner.Content = null;
+            }
         }
     }
 }

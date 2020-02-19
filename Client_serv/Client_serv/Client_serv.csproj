@@ -296,6 +296,8 @@
       <DependentUpon>HOSTEL.edmx</DependentUpon>
       <LastGenOutput>HOSTEL.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\close2.png" />
+    <Resource Include="Images\MultiTable.png" />
     <Resource Include="Images\table_roomTypes.png" />
     <Resource Include="Images\unknownImage.png" />
   </ItemGroup>

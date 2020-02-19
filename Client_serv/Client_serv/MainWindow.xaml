@@ -134,7 +134,16 @@
                     <TextBlock Text="Должности"  HorizontalAlignment="Center" Grid.Row="1"/>
                 </Grid>
             </Button>
-            <Button x:Name="MultiTable" Width="80" Margin="5,0,0,0" Click="MultiTable_Click"/>
+            <Button x:Name="MultiTable" Width="80" Margin="5,0,0,0" Click="MultiTable_Click" >
+                <Grid Height="60">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="20"/>
+                    </Grid.RowDefinitions>
+                    <Image Source="/Images/MultiTable.png" Width="35" Height="40" Grid.Row="0"  />
+                    <TextBlock Text="Две таблицы"  HorizontalAlignment="Center" Grid.Row="1"/>
+                </Grid>
+            </Button>
         </StackPanel>
         <TabControl  Grid.Row="2" TabStripPlacement="Bottom" Name="pages" SelectionChanged="pages_SelectionChanged">
         </TabControl>
