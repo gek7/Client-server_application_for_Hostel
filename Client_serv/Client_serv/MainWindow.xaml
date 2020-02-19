@@ -134,6 +134,7 @@
                     <TextBlock Text="Должности"  HorizontalAlignment="Center" Grid.Row="1"/>
                 </Grid>
             </Button>
+            <Button x:Name="MultiTable" Width="80" Margin="5,0,0,0" Click="MultiTable_Click"/>
         </StackPanel>
         <TabControl  Grid.Row="2" TabStripPlacement="Bottom" Name="pages" SelectionChanged="pages_SelectionChanged">
         </TabControl>

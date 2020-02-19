@@ -23,7 +23,7 @@ namespace Client_serv.Pages
     public partial class BuildingsPage : Page,Ipage
     {
         public DataGrid PageDataGrid => dg;
-        MainWindow OwnerPage;
+        object OwnerPage;
         public BuildingsPage()
         {
             InitializeComponent();
@@ -107,7 +107,11 @@ namespace Client_serv.Pages
 
         private void BtnClosePage_Click(object sender, RoutedEventArgs e)
         {
-            OwnerPage.pages.Items.Remove(OwnerPage.pages.SelectedItem);
+            if(OwnerPage is MainWindow)
+            {
+                MainWindow owner = OwnerPage as MainWindow;
+                owner.pages.Items.Remove(owner.pages.SelectedItem);
+            }
         }
     }
 }

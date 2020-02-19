@@ -36,7 +36,7 @@ namespace Client_serv
     public partial class MainWindow : Window
     {
         DispatcherTimer timeTimer = new DispatcherTimer();
-        // {get;} - означает свойство у котороего есть только метод get
+        // {get;} - означает свойство у которого есть только метод get
         public TabControl MainTabControl { get; }
         // Переменные и методы с модификатором static относятся к классу, т.е необязательно создавать экземпляр класса, чтобы обращаться к методам и переменным с модификатором static
         public static string connectionString = "Data Source=DESKTOP-CS9U3G2;Initial Catalog=HOSTEL;Integrated Security=True";
@@ -63,42 +63,87 @@ namespace Client_serv
             CurTime.Text = DateTime.Now.ToString();
         }
 
-        // Выполняется при нажатии кнопки выход
         private void close_app_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
-        // Далее идут однотипные обработчики событий, которые добавляют в TabControl новую вкладку
+        // Событие, срабатывающее при смене вкладки (Нужно, чтобы оставалась сортировка)
+        private void pages_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Если выбрана какая-нибудь вкладка
+            if (pages.SelectedItem != null)
+            {
+                // Создать экземпляр интерфейса и присвоить туда ссылку на содержимое выделенной вкладки
+                // (Чтобы посмотреть для чего нужен этот интерфейс зажмите ctrl и нажмите на Ipage)
+                Ipage ipage = ((pages.SelectedItem as TabItem).Content as Frame).Content as Ipage;
+
+                // в dg присваивается ссылка на таблицу данных вкладки, которая сейчас открыта
+                DataGrid dg = ipage.PageDataGrid;
+
+                // Сохраняет визуальную составляющую сортировки (Стрелочки сверху колонок) до обновления таблицы
+                // Queue - это очередь. Работает по принципу FIFO (Первым вошел, первым вышел)
+                // ListSortDirection - это тип данных, который есть у каждого столбца. 
+                // ? после типа данных означает, что он может принимать NULL значения
+                Queue<ListSortDirection?> SortQueueColumns = new Queue<ListSortDirection?>
+                    (
+                        // Здесь происходит инициализация коллекции
+                        // dg.Columns - это коллекция колонок, что-то вроде динамического массива
+                        // Если вызвать метод Select, то можно привести все объекты коллекции к другому виду
+                        // tmp - это любой объект коллекции. Это название может быть любым другим (Не может повторять названия уже объвяленных переменных)
+                        // После знака '=>' (Лямбда-оператор) написанно к какому виду привести все объекты коллекции
+                        // В данном случае select вернёт новую коллекцию содержащую направление каждой колонки
+                        dg.Columns.Select(tmp => tmp.SortDirection)
+                    );
+                // Объявление коллекции, которая в будущем будет хранить по каким полям сортировать и в каком порядке
+                SortDescriptionCollection SortList = new SortDescriptionCollection();
+
+                // Добавляет в коллекцию SortList сортировку каждой колонки до обновления таблицы данных
+                foreach (var i in dg.Items.SortDescriptions) SortList.Add(i);
+
+                // Обновление таблицы данных у вкладки, которая сейчас открыта
+                ipage.updateGrid();
+
+                // В следующий двух циклах в таблицу данных обратно присваиваются значения сортировки, сохранённые до обновления данных
+                for (int i = 0; i < SortList.Count; i++) dg.Items.SortDescriptions.Add(SortList[i]);
+                for (int i = 0; i < dg.Columns.Count; i++) dg.Columns[i].SortDirection = SortQueueColumns.Dequeue();
+            }
+        }
+
+        // Облегчённая версия создания страниц, но сложнее в понимании
         private void table_rooms_Click(object sender, RoutedEventArgs e)
         {
-            // Объявляем новую вкладку (Которая не относится ни к одному TabControl)
-            TabItem t = new TabItem();
-            // Изменяем название новой вкладки
-            t.Header = "Комнаты";
-            // Объявляем Frame, чтобы в него поместить страницу (страница содержит таблицу данных), Frame является своеобразным хранителем страниц
-            Frame f = new Frame();
-            // Объявляем экземпляр страницы, которая содержит таблицу комнат
-            RoomsPage p = new RoomsPage(this);
-            // Устанавлиаем отступ в 10 пикселей сверху
-            p.Margin = new Thickness(0, 10, 0, 0);
-            // Передаём эту страницу во Frame
-            f.Navigate(p);
-            // В недавно созданную вкладку ложим новый Frame
-            t.Content = f;
-            // В TabControl добавляем новую вкладку
-            pages.Items.Add(t);
+            // Объявляем экземпляр страницы, которая содержит таблицу комнат, заодно инициализируем отступ сверху в 10 пикселей
+            RoomsPage p = new RoomsPage(this) { Margin =new Thickness(0, 10, 0, 0) };
+
+            // Передаём этот экземпляр в функцию, которая принимает обобщённые типы, 
+            // В функции с этим типом можно делать только то, что можно делать с 
+            // каждым типом данных, потому что компилятор точно не знает, что вы передали
+            AddNewTab<RoomsPage>(sender, p);
+
+            // P.S К такому виду можно привести все обработчики событий ниже, но поймут ли другие?
         }
+
+        // Далее идут однотипные обработчики событий, которые добавляют в TabControl новую вкладку
 
         private void Table_posts_Click(object sender, RoutedEventArgs e)
         {
+            // Объявляем новую вкладку (Которая не относится ни к одному TabControl)
             TabItem t = new TabItem();
+            // Изменяем название вкладки
             t.Header = "Должности";
+            // Объявляем Frame, чтобы в него поместить страницу (страница содержит таблицу данных), Frame является своеобразным хранителем страниц
             Frame f = new Frame();
+
+            // Создаём экземпляр страницы PostsPage
             PostsPage p = new PostsPage(this);
+            // Устанавливаем отступ для страницы
             p.Margin = new Thickness(0, 10, 0, 0);
+            // Передаём эту страницу во Frame
             f.Navigate(p);
+            // В недавно созданную вкладку кладём новый Frame
             t.Content = f;
+            // В TabControl добавляем новую вкладку
             pages.Items.Add(t);
         }
 
@@ -148,48 +193,36 @@ namespace Client_serv
             t.Content = f;
             pages.Items.Add(t);
         }
+
+        private void MultiTable_Click(object sender, RoutedEventArgs e)
+        {
+            TabItem t = new TabItem();
+            t.Header = "МультиТаблица";
+            Frame f = new Frame();
+            MultiPage p = new MultiPage();
+            p.Margin = new Thickness(0, 10, 0, 0);
+            f.Navigate(p);
+            t.Content = f;
+            pages.Items.Add(t);
+        }
         #endregion
 
-        // Событие, срабатывающее при смене вкладки (Нужно, чтобы оставалась сортировка)
-        private void pages_SelectionChanged(object sender, SelectionChangedEventArgs e)
+      // После названия функции пишется <Любое название>, и после этот тип можно использовать в функции,
+      // только функционал будет очень ограничен, т.к тип обобщённый, и компилятор точно не знает, что передано
+       private void AddNewTab <T>(object sender,T page )
         {
-            // Если выбрана какая-нибудь вкладка
-            if (pages.SelectedItem != null)
-            {
-                // Создать экземпляр интерфейса и присвоить туда ссылку на содержимое выделенной вкладки
-                // (Чтобы посмотреть для чего нужен этот интерфейс зажмите ctrl и нажмите на Ipage)
-                Ipage ipage = ((pages.SelectedItem as TabItem).Content as Frame).Content as Ipage;
-
-                // в dg присваивается ссылка на таблицу данных вкладки, которая сейчас открыта
-                DataGrid dg = ipage.PageDataGrid;
-
-                // Сохраняет визуальную составляющую сортировки (Стрелочки сверху колонок) до обновления таблицы
-                // Queue - это очередь. Работает по принципу FIFO (Первым вошел, первым вышел)
-                // ListSortDirection - это тип данных, который есть у каждого столбца. 
-                // ? после типа данных означает, что он может принимать NULL значения
-                Queue<ListSortDirection?> SortQueueColumns = new Queue<ListSortDirection?>
-                    (
-                        // Здесь происходит инициализация коллекции
-                        // dg.Columns - это коллекция колонок, что-то вроде динамического массива
-                        // Если вызвать метод Select, то можно привести все объекты коллекции к другому виду
-                        // tmp - это любой объект коллекции. Это название может быть любым другим (Не может повторять названия уже объвяленных переменных)
-                        // После знака '=>' (Лямбда-оператор) написанно к какому виду привести все объекты коллекции
-                        // В данном случае select вернёт новую коллекцию содержащую направление каждой колонки
-                        dg.Columns.Select(tmp => tmp.SortDirection)
-                    );
-                // Объявление коллекции, которая в будущем будет хранить по каким полям сортировать и в каком порядке
-                SortDescriptionCollection SortList = new SortDescriptionCollection();
-
-                // Добавляет в коллекцию SortList сортировку каждой колонки до обновления таблицы данных
-                foreach (var i in dg.Items.SortDescriptions) SortList.Add(i);
-
-                // Обновление таблицы данных у вкладки, которая сейчас открыта
-                ipage.updateGrid();
-
-                // В следующий двух циклах в таблицу данных обратно присваиваются значения сортировки, сохранённые до обновления данных
-                for (int i = 0; i < SortList.Count; i++) dg.Items.SortDescriptions.Add(SortList[i]);
-                for (int i = 0; i < dg.Columns.Count; i++) dg.Columns[i].SortDirection = SortQueueColumns.Dequeue();
-            }
+            // Объявляем новую вкладку (Которая не относится ни к одному TabControl)
+            TabItem t = new TabItem();
+            // Изменяем название новой вкладки на текст второго элемента(textBlock) в содержимом кнопки
+            t.Header = (((sender as Button).Content as Grid).Children[1] as TextBlock).Text;
+            // Объявляем Frame, чтобы в него поместить страницу (страница содержит таблицу данных), Frame является своеобразным хранителем страниц
+            Frame f = new Frame();
+            // Передаём эту страницу во Frame
+            f.Navigate(page);
+            // В недавно созданную вкладку кладём новый Frame
+            t.Content = f;
+            // В TabControl добавляем новую вкладку
+            pages.Items.Add(t);
         }
     }
 }
