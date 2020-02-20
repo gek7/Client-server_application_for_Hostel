@@ -23,7 +23,7 @@ namespace Client_serv.Pages
     /// </summary>
     public partial class RoomsPage : Page,Ipage
     {
-        MainWindow OwnerPage;
+        object OwnerPage;
 
         public DataGrid PageDataGrid => dg;
 
@@ -31,7 +31,7 @@ namespace Client_serv.Pages
         {
             InitializeComponent();
         }
-        public RoomsPage(MainWindow owner) : this()
+        public RoomsPage(object owner) : this()
         {
             updateGrid();
             OwnerPage = owner;
@@ -123,12 +123,16 @@ namespace Client_serv.Pages
 
         private void BtnClosePage_Click(object sender, RoutedEventArgs e)
         {
-            OwnerPage.pages.Items.Remove(OwnerPage.pages.SelectedItem);
-        }
-
-        private void dg_Sorting(object sender, DataGridSortingEventArgs e)
-        {
-           
+            if (OwnerPage is MainWindow)
+            {
+                MainWindow owner = OwnerPage as MainWindow;
+                owner.pages.Items.Remove(owner.pages.SelectedItem);
+            }
+            else if (OwnerPage is Frame)
+            {
+                Frame owner = OwnerPage as Frame;
+                owner.Content = null;
+            }
         }
     }
 }

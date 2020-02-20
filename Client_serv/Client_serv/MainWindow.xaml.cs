@@ -113,15 +113,23 @@ namespace Client_serv
         // Облегчённая версия создания страниц, но сложнее в понимании
         private void table_rooms_Click(object sender, RoutedEventArgs e)
         {
-            // Объявляем экземпляр страницы, которая содержит таблицу комнат, заодно инициализируем отступ сверху в 10 пикселей
-            RoomsPage p = new RoomsPage(this) { Margin =new Thickness(0, 10, 0, 0) };
+            Frame f = GetFreePlaceInMultiPage();
+            if (f != null)
+            {
+                RoomsPage p = new RoomsPage(f);
+                f.Navigate(p);
+                return;
+            }
+            else
+            {
+                // Объявляем экземпляр страницы, которая содержит таблицу комнат, заодно инициализируем отступ сверху в 10 пикселей
+                RoomsPage p = new RoomsPage(this) { Margin = new Thickness(0, 10, 0, 0) };
 
-            // Передаём этот экземпляр в функцию, которая принимает обобщённые типы, 
-            // В функции с этим типом можно делать только то, что можно делать с 
-            // каждым типом данных, потому что компилятор точно не знает, что вы передали
-            AddNewTab<RoomsPage>(sender, p);
-
-            // P.S К такому виду можно привести все обработчики событий ниже, но поймут ли другие?
+                // Передаём этот экземпляр в функцию, которая принимает обобщённые типы, 
+                // В функции с этим типом можно делать только то, что можно делать с 
+                // каждым типом данных, потому что компилятор точно не знает, что вы передали
+                AddNewTab<RoomsPage>(sender, p);
+            }
         }
 
         // Далее идут однотипные обработчики событий, которые добавляют в TabControl новую вкладку
@@ -138,68 +146,76 @@ namespace Client_serv
             }
             else
             {
-                PostsPage p = new PostsPage(this) { Margin = new Thickness(0, 10, 0, 0) }; ;
+                PostsPage p = new PostsPage(this) { Margin = new Thickness(0, 10, 0, 0) };
                 AddNewTab<PostsPage>(sender,p);
             }
         }
 
         private void BtnGroups_Click(object sender, RoutedEventArgs e)
         {
-            TabItem t = new TabItem();
-            t.Header = "Группы";
-            Frame f = new Frame();
-            GroupsPage p = new GroupsPage(this);
-            p.Margin = new Thickness(0, 10, 0, 0);
-            f.Navigate(p);
-            t.Content = f;
-            pages.Items.Add(t);
+            Frame f = GetFreePlaceInMultiPage();
+            if (f != null)
+            {
+                GroupsPage p = new GroupsPage(f);
+                f.Navigate(p);
+                return;
+            }
+            else
+            {
+                GroupsPage p = new GroupsPage(this) { Margin = new Thickness(0, 10, 0, 0) };
+                AddNewTab(sender, p);
+            }
         }
 
         private void Table_building_Click(object sender, RoutedEventArgs e)
         {
-            TabItem t = new TabItem();
-            t.Header = "Корпуса";
-            Frame f = new Frame();
-            BuildingsPage b = new BuildingsPage(this);
-            f.Navigate(b);
-            t.Content = f;
-            pages.Items.Add(t);
+            Frame f = GetFreePlaceInMultiPage();
+            if (f != null)
+            {
+                BuildingsPage b = new BuildingsPage(f);
+                f.Navigate(b);
+            }
+            else
+            {
+                BuildingsPage p = new BuildingsPage(this) { Margin = new Thickness(0, 10, 0, 0) };
+                AddNewTab(sender, p);
+            }
         }
 
         private void table_people_Click(object sender, RoutedEventArgs e)
         {
-            TabItem t = new TabItem();
-            t.Header = "Люди";
-            Frame f = new Frame();
-            PeoplePage p = new PeoplePage(this);
-            p.Margin = new Thickness(0, 10, 0, 0);
-            f.Navigate(p);
-            t.Content = f;
-            pages.Items.Add(t);
+            Frame f = GetFreePlaceInMultiPage();
+            if (f != null)
+            {
+                PeoplePage p = new PeoplePage(f);
+                f.Navigate(p);
+            }
+            else
+            {
+                PeoplePage p = new PeoplePage(this) { Margin = new Thickness(0, 10, 0, 0) };
+                AddNewTab(sender, p);
+            }
         }
 
         private void Table_RoomTypes_Click(object sender, RoutedEventArgs e)
         {
-            TabItem t = new TabItem();
-            t.Header = "Виды комнат";
-            Frame f = new Frame();
-            RoomTypesPage p = new RoomTypesPage(this);
-            p.Margin = new Thickness(0, 10, 0, 0);
-            f.Navigate(p);
-            t.Content = f;
-            pages.Items.Add(t);
+            Frame f = GetFreePlaceInMultiPage();
+            if (f != null)
+            {
+                RoomTypesPage p = new RoomTypesPage(f);
+                f.Navigate(p);
+            }
+            else
+            {
+                RoomTypesPage p = new RoomTypesPage(this) { Margin = new Thickness(0, 10, 0, 0) };
+                AddNewTab(sender, p);
+            }
         }
 
         private void MultiTable_Click(object sender, RoutedEventArgs e)
         {
-            TabItem t = new TabItem();
-            t.Header = "МультиТаблица";
-            Frame f = new Frame();
-            f.NavigationUIVisibility = NavigationUIVisibility.Hidden;
             MultiPage p = new MultiPage();
-            f.Navigate(p);
-            t.Content = f;
-            pages.Items.Add(t);
+            AddNewTab(sender, p);
         }
         #endregion
 
@@ -213,6 +229,7 @@ namespace Client_serv
             t.Header = (((sender as Button).Content as Grid).Children[1] as TextBlock).Text;
             // Объявляем Frame, чтобы в него поместить страницу (страница содержит таблицу данных), Frame является своеобразным хранителем страниц
             Frame f = new Frame();
+            f.NavigationUIVisibility = NavigationUIVisibility.Hidden;
             // Передаём эту страницу во Frame
             f.Navigate(page);
             // В недавно созданную вкладку кладём новый Frame
@@ -227,7 +244,7 @@ namespace Client_serv
             // В bufFrame хранится ссылка на Frame, который находится в открытой вкладке, иначе null
             //зачем нужно выражение '?.' - https://metanit.com/sharp/tutorial/3.26.php
             Frame bufFrame = ((pages.SelectedItem as TabItem)?.Content as Frame);
-            if ((pages.Items.Count > 0) && (bufFrame.Content is MultiPage))
+            if ((pages.Items.Count > 0) && (bufFrame?.Content is MultiPage))
             {
                 MultiPage mul = bufFrame.Content as MultiPage;
                 Grid g = (mul.Content as Grid).Children[1] as Grid;

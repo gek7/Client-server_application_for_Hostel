@@ -107,10 +107,15 @@ namespace Client_serv.Pages
 
         private void BtnClosePage_Click(object sender, RoutedEventArgs e)
         {
-            if(OwnerPage is MainWindow)
+            if (OwnerPage is MainWindow)
             {
                 MainWindow owner = OwnerPage as MainWindow;
                 owner.pages.Items.Remove(owner.pages.SelectedItem);
+            }
+            else if (OwnerPage is Frame)
+            {
+                Frame owner = OwnerPage as Frame;
+                owner.Content = null;
             }
         }
     }

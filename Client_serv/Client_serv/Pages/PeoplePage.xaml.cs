@@ -28,12 +28,12 @@ namespace Client_serv.Pages
     public partial class PeoplePage : Page,Ipage
     {
         public DataGrid PageDataGrid => dg;
-        MainWindow OwnerPage;
+        object OwnerPage;
         public PeoplePage()
         {
             InitializeComponent();
         }
-        public PeoplePage(MainWindow owner) : this()
+        public PeoplePage(object owner) : this()
         {
             updateGrid();
             OwnerPage = owner;
@@ -116,7 +116,16 @@ namespace Client_serv.Pages
 
         private void BtnClosePage_Click(object sender, RoutedEventArgs e)
         {
-            OwnerPage.pages.Items.Remove(OwnerPage.pages.SelectedItem);
+            if (OwnerPage is MainWindow)
+            {
+                MainWindow owner = OwnerPage as MainWindow;
+                owner.pages.Items.Remove(owner.pages.SelectedItem);
+            }
+            else if (OwnerPage is Frame)
+            {
+                Frame owner = OwnerPage as Frame;
+                owner.Content = null;
+            }
         }
 
         private void dg_SelectionChanged(object sender, SelectionChangedEventArgs e)
