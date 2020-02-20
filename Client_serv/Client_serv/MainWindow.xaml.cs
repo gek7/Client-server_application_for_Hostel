@@ -116,11 +116,8 @@ namespace Client_serv
         {
                 // Объявляем экземпляр страницы, которая содержит таблицу комнат, заодно инициализируем отступ сверху в 10 пикселей
                 RoomsPage p = new RoomsPage(this) { Margin = new Thickness(0, 10, 0, 0) };
-
-                // Передаём этот экземпляр в функцию, которая принимает обобщённые типы, 
-                // В функции с этим типом можно делать только то, что можно делать с 
-                // каждым типом данных, потому что компилятор точно не знает, что вы передали
-                AddNewTab<RoomsPage>(sender, p);
+                // В метод AddNewTab передаём ссылку на страницу и название вкладки, в которой будет находиться эта страница
+                AddNewTab(p,"Комнаты" );
             
         }
 
@@ -129,57 +126,55 @@ namespace Client_serv
         private void Table_posts_Click(object sender, RoutedEventArgs e)
         {
                 PostsPage p = new PostsPage(this) { Margin = new Thickness(0, 10, 0, 0) };
-                AddNewTab<PostsPage>(sender,p);
-           
+                AddNewTab(p, "Должности");
         }
 
         private void BtnGroups_Click(object sender, RoutedEventArgs e)
         {
                 GroupsPage p = new GroupsPage(this) { Margin = new Thickness(0, 10, 0, 0) };
-                AddNewTab(sender, p);
+                AddNewTab(p, "Группы");
         }
 
         private void Table_building_Click(object sender, RoutedEventArgs e)
         {
-
                 BuildingsPage p = new BuildingsPage(this) { Margin = new Thickness(0, 10, 0, 0) };
-                AddNewTab(sender, p);
-            
+                AddNewTab(p, "Корпуса");
         }
 
         private void table_people_Click(object sender, RoutedEventArgs e)
         {
                 PeoplePage p = new PeoplePage(this) { Margin = new Thickness(0, 10, 0, 0) };
-                AddNewTab(sender, p);
+                AddNewTab(p, "Люди");
         }
 
         private void Table_RoomTypes_Click(object sender, RoutedEventArgs e)
         {
                 RoomTypesPage p = new RoomTypesPage(this) { Margin = new Thickness(0, 10, 0, 0) };
-                AddNewTab(sender, p);
+                AddNewTab(p, "Виды комнат");
         }
 
         private void MultiTable_Click(object sender, RoutedEventArgs e)
         {
             MultiPage p = new MultiPage();
-            AddNewTab(sender, p);
+            AddNewTab(p, "Корпуса/Комнаты");
         }
         #endregion
 
-      // После названия функции пишется <Любое название>, и после этот тип можно использовать в функции,
-      // только функционал будет очень ограничен, т.к тип обобщённый, и компилятор точно не знает, что передано
-       private void AddNewTab <T>(object sender,T page )
+      // Первым параметром передаётся страница, т.к всё наследуется от object,
+      // то мы можем любую страницу передать через этот параметр
+       private void AddNewTab (object page,string TabHeader )
         {
-            // Объявляем новую вкладку (Которая не относится ни к одному TabControl)
+            // Объявляем новую вкладку (Которая сейчас не относится ни к одному TabControl)
             TabItem t = new TabItem();
-            // Изменяем название новой вкладки на текст второго элемента(textBlock) в содержимом кнопки
-            t.Header = (((sender as Button).Content as Grid).Children[1] as TextBlock).Text;
+            // Присваиваем названию вкладки значение параметра TabHeader
+            t.Header = TabHeader;
             // Объявляем Frame, чтобы в него поместить страницу (страница содержит таблицу данных), Frame является своеобразным хранителем страниц
             Frame f = new Frame();
+            // скрываем навигационный интерфейс у фрейма (Стрелки вперёд и назад* Фрейм может переключаться по страницам вперёд и назад как браузер, сейчас нам это не нужно)
             f.NavigationUIVisibility = NavigationUIVisibility.Hidden;
-            // Передаём эту страницу во Frame
+            // Мы можем без проблем передать во Frame ссылку на страницу, так как метод Navigate принимает тип данных object
             f.Navigate(page);
-            // В недавно созданную вкладку кладём новый Frame
+            // В созданную вкладку кладём новый Frame
             t.Content = f;
             // В TabControl добавляем новую вкладку
             pages.Items.Add(t);

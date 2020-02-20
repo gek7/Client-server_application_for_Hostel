@@ -91,8 +91,16 @@ namespace Client_serv
                 {
                     using (HOSTELEntities DB = new HOSTELEntities())
                     {
-                        DB.Posts.Remove(DB.Posts.Find(dg.SelectedValue));
-                        DB.SaveChanges();
+                        try
+                        {
+                            DB.Posts.Remove(DB.Posts.Find(dg.SelectedValue));
+                            DB.SaveChanges();
+                        }
+                        catch
+                        {
+                            MessageBox.Show($"Ошибка при удалении \n Возможно в других таблицах есть ссылки на эту запись");
+                            return;
+                        }
                     }
                     updateGrid();
                 }

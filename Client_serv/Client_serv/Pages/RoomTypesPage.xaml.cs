@@ -92,8 +92,16 @@ namespace Client_serv.Pages
                 {
                     using (HOSTELEntities DB = new HOSTELEntities())
                     {
-                        DB.RoomTypes.Remove(DB.RoomTypes.Find(dg.SelectedValue));
-                        DB.SaveChanges();
+                        try
+                        {
+                            DB.RoomTypes.Remove(DB.RoomTypes.Find(dg.SelectedValue));
+                            DB.SaveChanges();
+                        }
+                        catch
+                        {
+                            MessageBox.Show($"Ошибка при удалении \n Возможно в других таблицах есть ссылки на эту запись");
+                            return;
+                        }
                     }
                     updateGrid();
                 }

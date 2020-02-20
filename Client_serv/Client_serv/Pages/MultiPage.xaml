@@ -22,8 +22,8 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" Width="3" Background="Black"  HorizontalAlignment="Center"  />
-            <Frame  x:Name="dg" Grid.Column="0" NavigationUIVisibility="Hidden" />
-            <Frame Grid.Column="2" NavigationUIVisibility="Hidden" />
+            <Frame  x:Name="dg" Source="/Pages/BuildingsPage.xaml" Grid.Column="0" NavigationUIVisibility="Hidden" />
+            <Frame Source="/Pages/RoomsPage.xaml" Grid.Column="2" NavigationUIVisibility="Hidden" />
         </Grid>
     </Grid>
 </Page>

@@ -96,9 +96,17 @@ namespace Client_serv.Pages
                     using(SqlConnection connection = new SqlConnection(MainWindow.connectionString))
                     {
                         connection.Open();
-                        string SqlQuery = $"Delete from Groups where(GroupID={dg.SelectedValue})";
-                        SqlCommand command = new SqlCommand(SqlQuery,connection);
-                        command.ExecuteNonQuery();
+                        try
+                        {
+                            string SqlQuery = $"Delete from Groups where(GroupID={dg.SelectedValue})";
+                            SqlCommand command = new SqlCommand(SqlQuery, connection);
+                            command.ExecuteNonQuery();
+                        }
+                        catch
+                        {
+                            MessageBox.Show($"Ошибка при удалении \n Возможно в других таблицах есть ссылки на эту запись");
+                            return;
+                        }
                     }
                     updateGrid();
                 }
