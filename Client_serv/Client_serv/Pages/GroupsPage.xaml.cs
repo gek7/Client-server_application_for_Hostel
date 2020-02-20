@@ -26,15 +26,15 @@ namespace Client_serv.Pages
     public partial class GroupsPage : Page,Ipage 
     {
         public DataGrid PageDataGrid => dg;
-        object OwnerPage;
+        MainWindow OwnerPage;
         public GroupsPage()
         {
             InitializeComponent();
         }
-        public GroupsPage(object owner) : this()
+        public GroupsPage(MainWindow _OwnerPage) : this()
         {
             updateGrid();
-            OwnerPage = owner;
+            OwnerPage = _OwnerPage;
         }
 
 
@@ -111,16 +111,7 @@ namespace Client_serv.Pages
 
         private void BtnClosePage_Click(object sender, RoutedEventArgs e)
         {
-            if (OwnerPage is MainWindow)
-            {
-                MainWindow owner = OwnerPage as MainWindow;
-                owner.pages.Items.Remove(owner.pages.SelectedItem);
-            }
-            else if (OwnerPage is Frame)
-            {
-                Frame owner = OwnerPage as Frame;
-                owner.Content = null;
-            }
+                OwnerPage.pages.Items.Remove(OwnerPage.pages.SelectedItem);
         }
     }
 }

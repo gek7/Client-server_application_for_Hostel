@@ -23,15 +23,15 @@ namespace Client_serv.Pages
     public partial class RoomTypesPage : Page,Ipage
     {
         public DataGrid PageDataGrid => dg;
-        object OwnerPage;
+        MainWindow OwnerPage;
         public RoomTypesPage()
         {
             InitializeComponent();
         }
-        public RoomTypesPage(object owner) : this()
+        public RoomTypesPage(MainWindow _OwnerPage) : this()
         {
             updateGrid();
-            OwnerPage = owner;
+            OwnerPage = _OwnerPage;
         }
 
 
@@ -106,16 +106,7 @@ namespace Client_serv.Pages
 
         private void BtnClosePage_Click(object sender, RoutedEventArgs e)
         {
-            if (OwnerPage is MainWindow)
-            {
-                MainWindow owner = OwnerPage as MainWindow;
-                owner.pages.Items.Remove(owner.pages.SelectedItem);
-            }
-            else if (OwnerPage is Frame)
-            {
-                Frame owner = OwnerPage as Frame;
-                owner.Content = null;
-            }
+                OwnerPage.pages.Items.Remove(OwnerPage.pages.SelectedItem);
         }
     }
 }

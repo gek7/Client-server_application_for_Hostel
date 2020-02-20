@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Linq;
 using System.Management.Instrumentation;
 using System.Text;
@@ -39,7 +40,8 @@ namespace Client_serv
         // {get;} - означает свойство у которого есть только метод get
         public TabControl MainTabControl { get; }
         // Переменные и методы с модификатором static относятся к классу, т.е необязательно создавать экземпляр класса, чтобы обращаться к методам и переменным с модификатором static
-        public static string connectionString = "Data Source=DESKTOP-CS9U3G2;Initial Catalog=HOSTEL;Integrated Security=True";
+        // Заранее поместив строку подключения в файл App.config, мы можем получать строку по её имени.
+        public static string connectionString = ConfigurationManager.ConnectionStrings["AdoNet"].ConnectionString;
         public MainWindow()
         {
             InitializeComponent();
@@ -110,18 +112,8 @@ namespace Client_serv
             }
         }
 
-        // Облегчённая версия создания страниц, но сложнее в понимании
         private void table_rooms_Click(object sender, RoutedEventArgs e)
         {
-            Frame f = GetFreePlaceInMultiPage();
-            if (f != null)
-            {
-                RoomsPage p = new RoomsPage(f);
-                f.Navigate(p);
-                return;
-            }
-            else
-            {
                 // Объявляем экземпляр страницы, которая содержит таблицу комнат, заодно инициализируем отступ сверху в 10 пикселей
                 RoomsPage p = new RoomsPage(this) { Margin = new Thickness(0, 10, 0, 0) };
 
@@ -129,87 +121,42 @@ namespace Client_serv
                 // В функции с этим типом можно делать только то, что можно делать с 
                 // каждым типом данных, потому что компилятор точно не знает, что вы передали
                 AddNewTab<RoomsPage>(sender, p);
-            }
+            
         }
 
         // Далее идут однотипные обработчики событий, которые добавляют в TabControl новую вкладку
 
         private void Table_posts_Click(object sender, RoutedEventArgs e)
         {
-            Frame f = GetFreePlaceInMultiPage();
-            if (f!=null)
-            {
-                        PostsPage p = new PostsPage(f);
-                        f.Navigate(p);
-                        return;
-                  
-            }
-            else
-            {
                 PostsPage p = new PostsPage(this) { Margin = new Thickness(0, 10, 0, 0) };
                 AddNewTab<PostsPage>(sender,p);
-            }
+           
         }
 
         private void BtnGroups_Click(object sender, RoutedEventArgs e)
         {
-            Frame f = GetFreePlaceInMultiPage();
-            if (f != null)
-            {
-                GroupsPage p = new GroupsPage(f);
-                f.Navigate(p);
-                return;
-            }
-            else
-            {
                 GroupsPage p = new GroupsPage(this) { Margin = new Thickness(0, 10, 0, 0) };
                 AddNewTab(sender, p);
-            }
         }
 
         private void Table_building_Click(object sender, RoutedEventArgs e)
         {
-            Frame f = GetFreePlaceInMultiPage();
-            if (f != null)
-            {
-                BuildingsPage b = new BuildingsPage(f);
-                f.Navigate(b);
-            }
-            else
-            {
+
                 BuildingsPage p = new BuildingsPage(this) { Margin = new Thickness(0, 10, 0, 0) };
                 AddNewTab(sender, p);
-            }
+            
         }
 
         private void table_people_Click(object sender, RoutedEventArgs e)
         {
-            Frame f = GetFreePlaceInMultiPage();
-            if (f != null)
-            {
-                PeoplePage p = new PeoplePage(f);
-                f.Navigate(p);
-            }
-            else
-            {
                 PeoplePage p = new PeoplePage(this) { Margin = new Thickness(0, 10, 0, 0) };
                 AddNewTab(sender, p);
-            }
         }
 
         private void Table_RoomTypes_Click(object sender, RoutedEventArgs e)
         {
-            Frame f = GetFreePlaceInMultiPage();
-            if (f != null)
-            {
-                RoomTypesPage p = new RoomTypesPage(f);
-                f.Navigate(p);
-            }
-            else
-            {
                 RoomTypesPage p = new RoomTypesPage(this) { Margin = new Thickness(0, 10, 0, 0) };
                 AddNewTab(sender, p);
-            }
         }
 
         private void MultiTable_Click(object sender, RoutedEventArgs e)
@@ -236,29 +183,6 @@ namespace Client_serv
             t.Content = f;
             // В TabControl добавляем новую вкладку
             pages.Items.Add(t);
-        }
-
-       // Если сейчас открыта вкладка с двумя таблицами, и какой-либо Frame свободен, то вернуть ссылку на свободный Frame
-       private Frame GetFreePlaceInMultiPage()
-       {
-            // В bufFrame хранится ссылка на Frame, который находится в открытой вкладке, иначе null
-            //зачем нужно выражение '?.' - https://metanit.com/sharp/tutorial/3.26.php
-            Frame bufFrame = ((pages.SelectedItem as TabItem)?.Content as Frame);
-            if ((pages.Items.Count > 0) && (bufFrame?.Content is MultiPage))
-            {
-                MultiPage mul = bufFrame.Content as MultiPage;
-                Grid g = (mul.Content as Grid).Children[1] as Grid;
-                foreach (var i in g.Children)
-                {
-                    if ( i is Frame && (i as Frame).Content == null)
-                    {
-                        PostsPage p = new PostsPage(i as Frame);
-                        (i as Frame).Navigate(p);
-                        return i as Frame;
-                    }
-                }
-            }
-            return null;
         }
     }
 }
