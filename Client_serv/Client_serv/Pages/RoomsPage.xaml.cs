@@ -25,21 +25,21 @@ namespace Client_serv.Pages
     {
         MainWindow OwnerPage;
 
-        public DataGrid PageDataGrid => dg;
-
         public RoomsPage()
         {
             InitializeComponent();
         }
         public RoomsPage(MainWindow _OwnerPage) : this()
         {
-            updateGrid();
+            UpdateGrid();
             OwnerPage = _OwnerPage;
         }
 
 
-        public void updateGrid()
+        public void UpdateGrid(int selectID)
         {
+            HelperClass.SaveSortDataGrid(dg);
+            if (selectID == -1) selectID = (int?)dg?.SelectedValue ?? -1;
             using (HOSTELEntities h = new HOSTELEntities())
             {
                 // Подгрузка таблиц ( После этого h.Таблица.Local возвращает значения из таблицы на момент вызова Load() )
@@ -66,6 +66,15 @@ namespace Client_serv.Pages
                 dg.SelectedValuePath = "id";
                 dg.ItemsSource = RoomsDB;
             }
+            dg.SelectedValue = selectID;
+            if (dg.SelectedIndex > -1)
+                dg.ScrollIntoView(dg.SelectedItem);
+            HelperClass.LoadSortDataGrid(dg);
+        }
+
+        public void UpdateGrid()
+        {
+            UpdateGrid(-1);
         }
 
         private void add_Click(object sender, RoutedEventArgs e)
@@ -120,7 +129,7 @@ namespace Client_serv.Pages
                             return;
                         }
                     }
-                    updateGrid();
+                    UpdateGrid();
                 }
             }
             else

@@ -78,6 +78,12 @@
     <Compile Include="Dialogs\GroupsDialog.xaml.cs">
       <DependentUpon>GroupsDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\MultiBuildingsDialog.xaml.cs">
+      <DependentUpon>MultiBuildingsDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\MultiRoomsDialog.xaml.cs">
+      <DependentUpon>MultiRoomsDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\PeopleDialog.xaml.cs">
       <DependentUpon>PeopleDialog.xaml</DependentUpon>
     </Compile>
@@ -93,6 +99,7 @@
     <Compile Include="Groups.cs">
       <DependentUpon>HOSTEL.tt</DependentUpon>
     </Compile>
+    <Compile Include="HelperClass.cs" />
     <Compile Include="HOSTEL.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -108,7 +115,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>HOSTEL.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Ipage.cs" />
     <Compile Include="Pages\BuildingsPage.xaml.cs">
       <DependentUpon>BuildingsPage.xaml</DependentUpon>
     </Compile>
@@ -156,6 +162,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\GroupsDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\MultiBuildingsDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\MultiRoomsDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

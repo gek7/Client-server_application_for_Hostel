@@ -1,7 +1,6 @@
 ﻿using Client_serv.Pages;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,19 +16,18 @@ using System.Windows.Shapes;
 namespace Client_serv.Dialogs
 {
     /// <summary>
-    /// Логика взаимодействия для GroupsDialog.xaml
+    /// Логика взаимодействия для MultiBuildingsDialog.xaml
     /// </summary>
-    public partial class GroupsDialog : Window
+    public partial class MultiBuildingsDialog
     {
-        GroupsPage CurPage;
+        MultiPage CurPage;
         mode CurMode;
         int ID;
-        public GroupsDialog()
+        public MultiBuildingsDialog()
         {
             InitializeComponent();
         }
-
-        public GroupsDialog(mode dialogMode, GroupsPage page, int fieldID = -1) : this()
+        public MultiBuildingsDialog(mode dialogMode, MultiPage page, int fieldID = -1) : this()
         {
             CurMode = dialogMode;
             ID = fieldID;
@@ -53,7 +51,7 @@ namespace Client_serv.Dialogs
 
         bool Check()
         {
-            if (TbGroups.Text == "")
+            if (TbName.Text == "" || TbAddress.Text == "")
             {
                 MessageBox.Show("Все поля должны быть заполнены!");
                 return false;
@@ -63,12 +61,12 @@ namespace Client_serv.Dialogs
 
         bool Save()
         {
+            int BuildID;
             try
             {
-                using (SqlConnection connection = new SqlConnection(MainWindow.connectionString ))
+                using (HOSTELEntities db = new HOSTELEntities())
                 {
-                    connection.Open();
-                    string SqlQuery = "";
+                    Buildings b = new Buildings();
                     switch (CurMode)
                     {
                         case mode.Add:
@@ -76,19 +74,19 @@ namespace Client_serv.Dialogs
 
                         case mode.Copy:
                         addPost:
-                            SqlQuery = $"INSERT INTO GROUPS (GroupName) VALUES ('{TbGroups.Text}')";
+                            FillObject(b);
+                            db.Buildings.Add(b);
                             break;
 
                         case mode.Update:
-                            SqlQuery = $"UPDATE GROUPS SET GroupName='{TbGroups.Text}' where GroupId={ID}";
+                            b = db.Buildings.Find(ID);
+                            FillObject(b);
                             break;
                     }
-                    SqlCommand command = new SqlCommand(SqlQuery, connection);
-                    command.ExecuteNonQuery();
-                    command = new SqlCommand("SELECT IDENT_CURRENT ('GROUPS')", connection);
-                    int id =int.Parse(command.ExecuteScalar().ToString());
-                    CurPage.UpdateGrid(id);
+                    db.SaveChanges();
+                    BuildID = b.BuildingID;
                 }
+                CurPage.UpdateGrid(BuildID, -1);
             }
             catch (Exception e)
             {
@@ -100,7 +98,7 @@ namespace Client_serv.Dialogs
 
         private void FillFields()
         {
-            using (HOSTELEntities DB = new HOSTELEntities())
+            using (HOSTELEntities db = new HOSTELEntities())
             {
                 switch (CurMode)
                 {
@@ -115,18 +113,19 @@ namespace Client_serv.Dialogs
                     case mode.Update:
                         Title = "Изменение";
                     fill:
-                        using(SqlConnection connection = new SqlConnection(MainWindow.connectionString))
-                        {
-                            connection.Open();
-                            string SqlQuery = $"Select * from Groups where(GroupID={ID})";
-                            SqlCommand command = new SqlCommand(SqlQuery, connection);
-                            SqlDataReader reader = command.ExecuteReader();
-                            reader.Read();
-                            TbGroups.Text=reader.GetString(1);
-                        }
+                        Buildings b = db.Buildings.Find(ID);
+                        TbName.Text = b.Name;
+                        TbAddress.Text = b.Address;
                         break;
                 }
             }
         }
+
+        private void FillObject(Buildings b)
+        {
+            b.Name = TbName.Text;
+            b.Address = TbAddress.Text;
+        }
+
     }
 }

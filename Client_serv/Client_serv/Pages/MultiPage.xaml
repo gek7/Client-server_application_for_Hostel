@@ -12,18 +12,49 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Button Width="20" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" Margin="0,0,0,10">
-            <Image Source="/Images/close2.png"/>
+        <Button x:Name="btnClose" Width="20" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" Click="btnClose_Click" >
+            <Image Source="/Images/close.png"/>
         </Button>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*" MinWidth="305"/>
                 <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*" MinWidth="305"/>
             </Grid.ColumnDefinitions>
-            <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" Width="3" Background="Black"  HorizontalAlignment="Center"  />
-            <Frame  x:Name="dg" Source="/Pages/BuildingsPage.xaml" Grid.Column="0" NavigationUIVisibility="Hidden" />
-            <Frame Source="/Pages/RoomsPage.xaml" Grid.Column="2" NavigationUIVisibility="Hidden" />
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" Width="3" Background="Black"  HorizontalAlignment="Center" Grid.RowSpan="2"/>
+
+            <StackPanel Orientation="Horizontal" Margin="0,3,0,3" Grid.Column="0">
+                <Button x:Name="BtnAddBuilding" Content="Добавить" Width="70" Margin="5,0,0,0" Click="BtnAddBuilding_Click" />
+                <Button x:Name="BtnCopyBuilding" Content="Копировать" Width="70" Margin="5,0,0,0" Click="BtnCopyBuilding_Click" />
+                <Button x:Name="BtnEditBuilding" Content="Изменить" Width="70" Margin="5,0,0,0" Click="BtnEditBuilding_Click"/>
+                <Button x:Name="BtnDeleteBuilding" Content="Удалить" Width="70" Margin="5,0,0,0" Click="BtnDeleteBuilding_Click" />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,3,0,3" Grid.Column="2">
+                <Button x:Name="BtnAddRooms" Content="Добавить" Width="70" Margin="5,0,0,0"  Click="BtnAddRooms_Click"/>
+                <Button x:Name="BtnCopyRooms" Content="Копировать" Width="70" Margin="5,0,0,0" Click="BtnCopyRooms_Click"/>
+                <Button x:Name="BtnEditRooms" Content="Изменить" Width="70" Margin="5,0,0,0"  Click="BtnEditRooms_Click"/>
+                <Button x:Name="BtnDeleteRooms" Content="Удалить" Width="70" Margin="5,0,0,0"  Click="BtnDeleteRooms_Click"/>
+            </StackPanel>
+
+            <DataGrid x:Name="dgBuildings" Grid.Column="0" Grid.Row="1" IsReadOnly="True" AutoGenerateColumns="False"  ItemsSource="{Binding}" SelectionChanged="dgBuildings_SelectionChanged" SelectionMode="Single">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Название корпуса" Binding="{Binding Path=Name}" Width="auto"/>
+                    <DataGridTextColumn Header="Адрес" Binding="{Binding Path=Address}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <DataGrid x:Name="dgRooms" Grid.Column="2" Grid.Row="1" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding}" SelectionMode="Single">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Корпус" Width="auto" Binding="{Binding Path=Building}"/>
+                    <DataGridTextColumn Header="Номер" Binding="{Binding Path=Num}" Width="auto"/>
+                    <DataGridTextColumn Header="Кол-во мест" Binding="{Binding Path=PlacesCount}" Width="auto"/>
+                    <DataGridTextColumn Header="Тип комнаты" Binding="{Binding Path=RoomType}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
         </Grid>
     </Grid>
 </Page>

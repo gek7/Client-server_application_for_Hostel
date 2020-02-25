@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using Client_serv.Pages;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -23,7 +24,7 @@ namespace Client_serv.Dialogs
     public partial class PeopleDialog : Window
     {
 
-        Ipage CurPage;
+        PeoplePage CurPage;
         mode CurMode;
         int ID;
         public PeopleDialog()
@@ -31,7 +32,7 @@ namespace Client_serv.Dialogs
             InitializeComponent();
         }
 
-        public PeopleDialog(mode dialogMode, Ipage page, int fieldID = -1) : this()
+        public PeopleDialog(mode dialogMode, PeoplePage page, int fieldID = -1) : this()
         {
             CurMode = dialogMode;
             ID = fieldID;
@@ -97,6 +98,7 @@ namespace Client_serv.Dialogs
                             break;
                     }
                     db.SaveChanges();
+                    CurPage.UpdateGrid(r.PeopleID);
                 }
             }
             catch (Exception e)
@@ -104,7 +106,6 @@ namespace Client_serv.Dialogs
                 MessageBox.Show($"Ошибка при сохранении \n {e.Message}");
                 return false;
             }
-            CurPage.updateGrid();
             return true;
         }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Client_serv.Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,7 +20,7 @@ namespace Client_serv.Dialogs
     /// </summary>
     public partial class RoomTypesDialog : Window
     {
-        Ipage CurPage;
+        RoomTypesPage CurPage;
         mode CurMode;
         int ID;
         public RoomTypesDialog()
@@ -27,7 +28,7 @@ namespace Client_serv.Dialogs
             InitializeComponent();
         }
 
-        public RoomTypesDialog(mode dialogMode, Ipage page, int fieldID = -1) : this()
+        public RoomTypesDialog(mode dialogMode, RoomTypesPage page, int fieldID = -1) : this()
         {
             CurMode = dialogMode;
             ID = fieldID;
@@ -65,6 +66,7 @@ namespace Client_serv.Dialogs
             {
                 using (HOSTELEntities db = new HOSTELEntities())
                 {
+                    RoomTypes r = new RoomTypes();
                     switch (CurMode)
                     {
                         case mode.Add:
@@ -72,14 +74,17 @@ namespace Client_serv.Dialogs
 
                         case mode.Copy:
                         addPost:
-                            db.RoomTypes.Add(new RoomTypes() {RoomType = TbRoomTypes.Text });
+                            r.RoomType = TbRoomTypes.Text;
+                            db.RoomTypes.Add(r);
                             break;
 
                         case mode.Update:
-                            db.RoomTypes.Find(ID).RoomType = TbRoomTypes.Text;
+                            r = db.RoomTypes.Find(ID);
+                            r.RoomType = TbRoomTypes.Text;
                             break;
                     }
                     db.SaveChanges();
+                    CurPage.UpdateGrid(r.RtyID);
                 }
             }
             catch (Exception e)
@@ -87,7 +92,6 @@ namespace Client_serv.Dialogs
                 MessageBox.Show($"Ошибка при сохранении \n {e.Message}");
                 return false;
             }
-            CurPage.updateGrid();
             return true;
         }
 

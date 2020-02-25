@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Client_serv.Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,7 +20,7 @@ namespace Client_serv.Dialogs
     /// </summary>
     public partial class BuildingsDialog : Window
     {
-        Ipage CurPage;
+        BuildingsPage CurPage;
         mode CurMode;
         int ID;
         public BuildingsDialog()
@@ -27,7 +28,7 @@ namespace Client_serv.Dialogs
             InitializeComponent();
         }
 
-        public BuildingsDialog(mode dialogMode, Ipage page, int fieldID = -1) : this()
+        public BuildingsDialog(mode dialogMode, BuildingsPage page, int fieldID = -1) : this()
         {
             CurMode = dialogMode;
             ID = fieldID;
@@ -83,6 +84,7 @@ namespace Client_serv.Dialogs
                             break;
                     }
                     db.SaveChanges();
+                    CurPage.UpdateGrid(b.BuildingID);
                 }
             }
             catch (Exception e)
@@ -90,7 +92,6 @@ namespace Client_serv.Dialogs
                 MessageBox.Show($"Ошибка при сохранении \n {e.Message}");
                 return false;
             }
-            CurPage.updateGrid();
             return true;
         }
 

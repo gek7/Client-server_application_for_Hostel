@@ -26,7 +26,7 @@
         <Button x:Name="BtnClosePage" HorizontalAlignment="Right" Click="BtnClosePage_Click" Grid.Column="1">
             <Image Source="/Images/close.png" Width="20" Height="20"/>
         </Button>
-        <DataGrid x:Name="dg" Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding}" IsReadOnly="True" Grid.Column="0" SelectionChanged="dg_SelectionChanged" >
+        <DataGrid x:Name="dg" Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding}" IsReadOnly="True" Grid.Column="0" SelectionChanged="dg_SelectionChanged"  SelectionMode="Single">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ФИО" Width="*" Binding="{Binding Path=Name}"/>
                 <DataGridTextColumn Header="День рождения" Binding="{Binding Path=BirthDate}" Width="*"/>

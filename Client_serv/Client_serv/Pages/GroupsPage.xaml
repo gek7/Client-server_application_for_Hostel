@@ -22,7 +22,7 @@
         <Button x:Name="BtnClosePage" HorizontalAlignment="Right" Click="BtnClosePage_Click">
             <Image Source="/Images/close.png" Width="20" Height="20"/>
         </Button>
-        <DataGrid x:Name="dg" Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding}" IsReadOnly="True">
+        <DataGrid x:Name="dg" Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding}" IsReadOnly="True" SelectionMode="Single">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Группа" Binding="{Binding Path=GroupName}" Width="*"/>
             </DataGrid.Columns>

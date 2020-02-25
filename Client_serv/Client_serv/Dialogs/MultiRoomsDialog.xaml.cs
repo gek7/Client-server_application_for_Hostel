@@ -17,19 +17,19 @@ using System.Windows.Shapes;
 namespace Client_serv.Dialogs
 {
     /// <summary>
-    /// Логика взаимодействия для RoomsDialog.xaml
+    /// Логика взаимодействия для MultiRoomsDialog.xaml
     /// </summary>
-    public partial class RoomsDialog : Window
+    public partial class MultiRoomsDialog : Window
     {
-        RoomsPage CurPage;
+        MultiPage CurPage;
         mode CurMode;
         int ID;
-        public RoomsDialog()
+        public MultiRoomsDialog()
         {
             InitializeComponent();
         }
 
-        public RoomsDialog(mode dialogMode, RoomsPage page, int fieldID = -1) : this()
+        public MultiRoomsDialog(mode dialogMode, MultiPage page, int fieldID = -1) : this()
         {
             CurMode = dialogMode;
             ID = fieldID;
@@ -53,7 +53,7 @@ namespace Client_serv.Dialogs
 
         bool Check()
         {
-            if (cbBuilding.SelectedIndex==-1)
+            if (cbBuilding.SelectedIndex == -1)
             {
                 MessageBox.Show("Комната не может быть без корпуса! Выберите корпус");
                 return false;
@@ -63,7 +63,7 @@ namespace Client_serv.Dialogs
                 MessageBox.Show("Комната должна быть какого-то типа! Выберите тип комнаты");
                 return false;
             }
-            if (TbNum.Text.Trim()=="")
+            if (TbNum.Text.Trim() == "")
             {
                 MessageBox.Show("Комната не может быть без номера! Заполните поле 'Номер комнаты'");
                 return false;
@@ -104,7 +104,7 @@ namespace Client_serv.Dialogs
                             break;
                     }
                     db.SaveChanges();
-                    CurPage.UpdateGrid(r.RoomID);
+                    CurPage.UpdateGridRooms(r.RoomID);
                 }
             }
             catch (Exception e)
@@ -134,6 +134,7 @@ namespace Client_serv.Dialogs
                 {
                     case mode.Add:
                         Title = "Добавление";
+                        cbBuilding.SelectedValue = (int?)CurPage?.dgBuildings?.SelectedValue ?? -1;
                         break;
 
                     case mode.Copy:

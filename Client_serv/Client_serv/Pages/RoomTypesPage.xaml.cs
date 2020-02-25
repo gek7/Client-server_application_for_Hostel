@@ -22,7 +22,6 @@ namespace Client_serv.Pages
     /// </summary>
     public partial class RoomTypesPage : Page,Ipage
     {
-        public DataGrid PageDataGrid => dg;
         MainWindow OwnerPage;
         public RoomTypesPage()
         {
@@ -30,13 +29,15 @@ namespace Client_serv.Pages
         }
         public RoomTypesPage(MainWindow _OwnerPage) : this()
         {
-            updateGrid();
+            UpdateGrid();
             OwnerPage = _OwnerPage;
         }
 
 
-        public void updateGrid()
+        public void UpdateGrid(int selectID)
         {
+            HelperClass.SaveSortDataGrid(dg);
+            if (selectID == -1) selectID = (int?)dg?.SelectedValue ?? -1;
             using (HOSTELEntities h = new HOSTELEntities())
             {
                 h.RoomTypes.Load();
@@ -49,6 +50,15 @@ namespace Client_serv.Pages
                 dg.SelectedValuePath = "id";
                 dg.ItemsSource = postDB;
             }
+            dg.SelectedValue = selectID;
+            if (dg.SelectedIndex > -1)
+                dg.ScrollIntoView(dg.SelectedItem);
+            HelperClass.LoadSortDataGrid(dg);
+        }
+
+        public void UpdateGrid()
+        {
+            UpdateGrid(-1);
         }
 
         private void add_Click(object sender, RoutedEventArgs e)
@@ -103,7 +113,7 @@ namespace Client_serv.Pages
                             return;
                         }
                     }
-                    updateGrid();
+                    UpdateGrid();
                 }
             }
             else

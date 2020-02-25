@@ -27,7 +27,6 @@ namespace Client_serv.Pages
     /// </summary>
     public partial class PeoplePage : Page,Ipage
     {
-        public DataGrid PageDataGrid => dg;
         MainWindow OwnerPage;
         public PeoplePage()
         {
@@ -35,13 +34,15 @@ namespace Client_serv.Pages
         }
         public PeoplePage(MainWindow _OwnerPage) : this()
         {
-            updateGrid();
+            UpdateGrid();
             OwnerPage = _OwnerPage;
         }
 
 
-        public void updateGrid()
+        public void UpdateGrid(int selectID)
         {
+            HelperClass.SaveSortDataGrid(dg);
+            if (selectID == -1) selectID = (int?)dg?.SelectedValue ?? -1;
             using (HOSTELEntities db = new HOSTELEntities())
             {
                 db.People.Load();
@@ -58,7 +59,16 @@ namespace Client_serv.Pages
                 dg.SelectedValuePath = "id";
                 dg.ItemsSource = PeopleDB;
             }
+            dg.SelectedValue = selectID;
+            if (dg.SelectedIndex > -1)
+                dg.ScrollIntoView(dg.SelectedItem);
+            HelperClass.LoadSortDataGrid(dg);
             UpdateImage();
+        }
+
+        public void UpdateGrid()
+        {
+            UpdateGrid(-1);
         }
 
         private void add_Click(object sender, RoutedEventArgs e)
@@ -113,7 +123,7 @@ namespace Client_serv.Pages
                             return;
                         }
                     }
-                    updateGrid();
+                    UpdateGrid();
                 }
             }
             else

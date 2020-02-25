@@ -20,7 +20,7 @@ namespace Client_serv.Dialogs
     /// </summary>
     public partial class PostsDialog : Window
     {
-        Ipage CurPage;
+        PostsPage CurPage;
         mode CurMode;
         int ID;
         public PostsDialog()
@@ -28,7 +28,7 @@ namespace Client_serv.Dialogs
             InitializeComponent();
         }
 
-        public PostsDialog(mode dialogMode,Ipage page, int fieldID = -1) : this()
+        public PostsDialog(mode dialogMode, PostsPage page, int fieldID = -1) : this()
         {
             CurMode = dialogMode;
             ID = fieldID;
@@ -66,21 +66,25 @@ namespace Client_serv.Dialogs
             {
                 using(HOSTELEntities db = new HOSTELEntities())
                 {
+                    Posts p = new Posts();
                     switch (CurMode)
                     {
                         case mode.Add:
                             goto addPost;
 
                         case mode.Copy:
-                            addPost:
-                            db.Posts.Add(new Posts() { Post = TbPost.Text });
+                        addPost:
+                            p.Post = TbPost.Text;
+                            db.Posts.Add(p);
                             break;
 
                         case mode.Update:
-                            db.Posts.Find(ID).Post = TbPost.Text;
+                            p=db.Posts.Find(ID);
+                            p.Post = TbPost.Text;
                             break;
                     }
                     db.SaveChanges();
+                    CurPage.UpdateGrid(p.PostID);
                 }
             }
             catch(Exception e)
@@ -88,7 +92,6 @@ namespace Client_serv.Dialogs
                 MessageBox.Show($"Ошибка при сохранении \n {e.Message}");
                 return false;
             }
-            CurPage.updateGrid();
             return true;
         }
 
