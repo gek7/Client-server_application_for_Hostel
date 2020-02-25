@@ -49,7 +49,7 @@
             2-ая строка равная 20 пикселям - это текст
             -->
 
-            <Button x:Name="Table_building" Margin="5,0,0,0" Width="80" Click="Table_building_Click">
+            <Button x:Name="Table_building" Margin="5,0,0,0" Width="80" Click="Table_building_Click" Background="LightGreen">
                 <Grid Height="60">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"/>
@@ -60,7 +60,7 @@
                 </Grid>
             </Button>
 
-            <Button   Margin="5,0,0,0" Click="table_rooms_Click" Width="80">
+            <Button   Margin="5,0,0,0" Click="table_rooms_Click" Width="80" Background="LightGreen">
                 <Grid Height="60">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"/>
@@ -71,7 +71,7 @@
                 </Grid>
             </Button>
 
-            <Button x:Name="Table_RoomTypes"  Margin="5,0,0,0" Width="80" Click="Table_RoomTypes_Click">
+            <Button x:Name="Table_RoomTypes"  Margin="5,0,0,0" Width="80" Click="Table_RoomTypes_Click" Background="LightGreen">
                 <Grid Height="60">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"/>
@@ -82,7 +82,7 @@
                 </Grid>
             </Button>
 
-            <Button x:Name="table_people" Margin="5,0,0,0" Width="80" Click="table_people_Click">
+            <Button x:Name="table_people" Margin="5,0,0,0" Width="80" Click="table_people_Click" Background="LightGreen">
                 <Grid Height="60">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"/>
@@ -114,7 +114,7 @@
                     <TextBlock Text="Работники"  HorizontalAlignment="Center" Grid.Row="1"/>
                 </Grid>
             </Button>
-            <Button x:Name="BtnGroups"  Margin="5,0,0,0" Width="80" Click="BtnGroups_Click" >
+            <Button x:Name="BtnGroups"  Margin="5,0,0,0" Width="80" Click="BtnGroups_Click" Background="LightGreen" >
                 <Grid Height="60">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"/>
@@ -125,7 +125,7 @@
                 </Grid>
             </Button>
 
-            <Button x:Name="Table_posts"  Margin="5,0,0,0" Width="80" Click="Table_posts_Click">
+            <Button x:Name="Table_posts"  Margin="5,0,0,0" Width="80" Click="Table_posts_Click" Background="LightGreen">
                 <Grid Height="60">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"/>
@@ -135,7 +135,7 @@
                     <TextBlock Text="Должности"  HorizontalAlignment="Center" Grid.Row="1"/>
                 </Grid>
             </Button>
-            <Button x:Name="MultiTable" Width="80" Margin="5,0,0,0" Click="MultiTable_Click" >
+            <Button x:Name="MultiTable" Width="80" Margin="5,0,0,0" Click="MultiTable_Click" Background="LightGreen">
                 <Grid Height="60">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"/>

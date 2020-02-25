@@ -33,7 +33,7 @@
             <TextBox x:Name="TbPsp" Height="25"/>
             <TextBox x:Name="TbPhoneNumber" Height="25"/>
             <TextBox x:Name="TbEmail" Height="25"/>
-            <Image x:Name="Picture" Width="100" Source="/Images/unknownImage.png" Margin="0,5,0,0" />
+            <Image x:Name="Picture" Width="100" Height="100" Source="/Images/unknownImage.png" Margin="0,5,0,0" />
         </StackPanel>
         <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Height="34" Width="170">
             <Button x:Name="BtnOk" Content="Ок" Width="75" Height="25" Margin="0,0,5,0" Click="BtnOk_Click"/>
