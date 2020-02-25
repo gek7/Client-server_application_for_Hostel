@@ -52,7 +52,7 @@ namespace Client_serv.Pages
             DataGrid dg = dgBuildings;
             HelperClass.SaveSortDataGrid(dg);
             // В using происходит обращение к БД и выборка значений из таблицы 'Корпуса'
-            if (selectID == -1) selectID = (int?)dg?.SelectedValue ?? -1;
+            if (selectID == -1) selectID = (int)(dg?.SelectedValue ?? -1);
             using (HOSTELEntities h = new HOSTELEntities())
             {
                 h.Buildings.Load();
@@ -80,7 +80,7 @@ namespace Client_serv.Pages
             HelperClass.SaveSortDataGrid(dg);
             // Обновление таблицы 'комнаты'
             int? BuildID = (int?)dgBuildings?.SelectedValue;
-            if (selectID == -1) selectID = (int?)dg?.SelectedValue ?? -1;
+            if (selectID == -1) selectID = (int)(dg?.SelectedValue ?? -1);
             using (HOSTELEntities h = new HOSTELEntities())
             {
                 h.Rooms.Load();

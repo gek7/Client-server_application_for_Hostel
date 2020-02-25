@@ -40,7 +40,7 @@ namespace Client_serv.Pages
         public void UpdateGrid(int selectID)
         {
             HelperClass.SaveSortDataGrid(dg);
-            if (selectID == -1) selectID = (int?)dg?.SelectedValue ?? -1;
+            if (selectID == -1) selectID = (int)(dg?.SelectedValue ?? -1);
             using (SqlConnection connection = new SqlConnection(MainWindow.connectionString))
             {
                 connection.Open();

@@ -38,7 +38,7 @@ namespace Client_serv.Pages
         {
             
             HelperClass.SaveSortDataGrid(dg);
-            if (selectID == -1) selectID = (int?)dg?.SelectedValue ?? -1;
+            if (selectID == -1) selectID = (int)(dg?.SelectedValue ?? -1);
             using (HOSTELEntities h = new HOSTELEntities())
             {
                 h.Buildings.Load();

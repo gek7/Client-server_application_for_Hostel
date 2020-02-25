@@ -39,7 +39,7 @@ namespace Client_serv.Pages
         public void UpdateGrid(int selectID)
         {
             HelperClass.SaveSortDataGrid(dg);
-            if (selectID == -1) selectID = (int?)dg?.SelectedValue ?? -1;
+            if (selectID == -1) selectID = (int)(dg?.SelectedValue ?? -1);
             using (HOSTELEntities h = new HOSTELEntities())
             {
                 // Подгрузка таблиц ( После этого h.Таблица.Local возвращает значения из таблицы на момент вызова Load() )
@@ -49,19 +49,13 @@ namespace Client_serv.Pages
                 // var - неявный "тип", т.е неизвестный тип данных. Тип становится известным только после присвоения любого значения. 
                 // Присваивать значения нужно во время объявления переменной, иначе выдаст ошибку
                 var RoomsDB = from i in h.Rooms.Local
-                                  // inner join Buildings on Rooms.BuildingID = Buildings.BuildingID
-                              join j in h.Buildings.Local on i.BuildingID equals j.BuildingID into t
-                              from t1 in t.DefaultIfEmpty()
-                                  // inner join RoomTypes on RoomTypes.RtyID = Rooms.RtyID
-                              join c in h.RoomTypes.Local on i.RtyID equals c.RtyID into t2
-                              from t3 in t2?.DefaultIfEmpty()
                               select new
                               {
                                   id = i.RoomID,
-                                  Building = t1.Name ?? "",
+                                  Building = i.Buildings.Name,
                                   Num = i.Num,
                                   PlacesCount = i.PlacesCount,
-                                  RoomType = t3.RoomType ?? ""
+                                  RoomType = i.RoomTypes.RoomType
                               };
                 dg.SelectedValuePath = "id";
                 dg.ItemsSource = RoomsDB;

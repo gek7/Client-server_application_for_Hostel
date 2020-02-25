@@ -73,8 +73,8 @@ namespace Client_serv
          //Событие, срабатывающее при смене вкладки (Нужно, чтобы оставалась сортировка)
         private void pages_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Если выбрана какая-нибудь вкладка и событие произло в объекте TabControl
-            // События могут происходить во вложенных объектах и это событие тоже будет срабатывать
+            // Если выбрана какая-нибудь вкладка и событие произошло в объекте TabControl
+            // События могут происходить во вложенных объектах и это событие тоже будет обрабатываться здесь, поэтому сделана проверка на источник события
             // Вот подробнее - https://metanit.com/sharp/wpf/6.php
             if (pages.SelectedItem != null && (e.OriginalSource is TabControl))
             {
@@ -129,7 +129,7 @@ namespace Client_serv
 
         private void MultiTable_Click(object sender, RoutedEventArgs e)
         {
-            MultiPage p = new MultiPage();
+            MultiPage p = new MultiPage(this);
             AddNewTab(p, "Корпуса/Комнаты");
         }
         #endregion

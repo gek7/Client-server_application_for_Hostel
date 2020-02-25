@@ -32,6 +32,7 @@ namespace Client_serv
 
     // Вспомогающий класс
     // Статья про модификатор static - https://metanit.com/sharp/tutorial/3.6.php
+    // Создан для однопоточного приложения, для многопоточного, не нужно использовать статические поля
     public static class HelperClass
     {
        static Queue<ListSortDirection?> SortQueueColumns;
