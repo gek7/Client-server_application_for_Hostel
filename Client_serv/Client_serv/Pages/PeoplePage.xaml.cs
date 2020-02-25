@@ -189,7 +189,7 @@ namespace Client_serv.Pages
                     img.BeginInit();
                     img.StreamSource = stream;
                     img.EndInit();
-                    // Передаём в объект Image, созданный на форме картинку из БД
+                    // Указываем источник для картинки на форме, созданный на форме картинку из БД
                     pict.Source = img;
                 }
                 else

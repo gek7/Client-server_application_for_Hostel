@@ -39,22 +39,37 @@ namespace Client_serv.Pages
 
         public void UpdateGrid(int selectID)
         {
+            // Сохранение сортировки в статические поля класса HelperClass
             HelperClass.SaveSortDataGrid(dg);
+            // Если переданный в метод ID == -1, то оставить выбранный элемент
             if (selectID == -1) selectID = (int)(dg?.SelectedValue ?? -1);
+            //Создание соединения с БД
             using (SqlConnection connection = new SqlConnection(MainWindow.connectionString))
             {
+                // Открытие соединения
                 connection.Open();
+                // Переменной присваивается запрос, который в будущем будет выполнен
                 string SqlQuery = "select * from Groups";
+                // Создаётся экземпляр SqlCommand для выполнения запроса. В кач-ве параметров передаётся запрос и соединение к БД
                 SqlCommand command = new SqlCommand(SqlQuery, connection);
+                // SqlDataAdapter - это посредник между БД и приложением
                 SqlDataAdapter adapter = new SqlDataAdapter(command);
+                // ds - источник для таблицы на форме
                 DataTable ds = new DataTable();
+                // Адаптер заполняет таблицу ds значениями из запроса
                 adapter.Fill(ds);
+                // Источник для таблицы на форме - ds
                 dg.ItemsSource = ds.DefaultView;
+                // Каждая строка таблицы будет хранить значение поля GroupID
                 dg.SelectedValuePath = "GroupID";
             }
+            // Выбранная строка = строка с GroupID равным selectID
             dg.SelectedValue = selectID;
+            // Если выбрана какая-то строка
             if (dg.SelectedIndex > -1)
+                // Прокрутить до выбранной строки
                 dg.ScrollIntoView(dg.SelectedItem);
+            // Вернуть сортировку (Во время обновления данных сортировка сбрасывается, для этого мы её сохраняли)
             HelperClass.LoadSortDataGrid(dg);
         }
 
@@ -109,6 +124,7 @@ namespace Client_serv.Pages
                         {
                             string SqlQuery = $"Delete from Groups where(GroupID={dg.SelectedValue})";
                             SqlCommand command = new SqlCommand(SqlQuery, connection);
+                            // Выполнение запроса, которая ничего не возвращает
                             command.ExecuteNonQuery();
                         }
                         catch

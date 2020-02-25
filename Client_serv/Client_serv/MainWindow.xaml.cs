@@ -33,7 +33,9 @@ namespace Client_serv
         Copy=25,
         Update,  // Update = 26
     }
-
+    /// <summary>
+    ///  Комментарии есть в файлах: PeoplePage, PeopleDialog, GroupsPage, GroupsDialog
+    /// </summary>
     public partial class MainWindow : Window
     {
         DispatcherTimer timeTimer = new DispatcherTimer();

@@ -23,9 +23,10 @@ namespace Client_serv.Dialogs
     /// </summary>
     public partial class PeopleDialog : Window
     {
-
         PeoplePage CurPage;
+        // Перечисление хранит какое действие выбрал пользователь
         mode CurMode;
+        // ID хранит id записи с которой работаем
         int ID;
         public PeopleDialog()
         {
@@ -37,6 +38,7 @@ namespace Client_serv.Dialogs
             CurMode = dialogMode;
             ID = fieldID;
             CurPage = page;
+            // Метод для заполнение полей диалогового окна (если нужно)
             FillFields();
         }
 
@@ -54,6 +56,7 @@ namespace Client_serv.Dialogs
             Close();
         }
 
+        // Проверки на правильность введённых данных
         bool Check()
         {
             if (TbName.Text.Trim() == "")
@@ -74,6 +77,7 @@ namespace Client_serv.Dialogs
             return true;
         }
 
+        // Сохранение изменений в базу данных
         bool Save()
         {
             try
@@ -84,20 +88,27 @@ namespace Client_serv.Dialogs
                     switch (CurMode)
                     {
                         case mode.Add:
+                            // Переход в ветку Copy
                             goto addRoom;
 
                         case mode.Copy:
                         addRoom:
+                            // Заполняет объект r значениями из полей диалог. окна
                             FillObject(r);
+                            // Добавляем объект в таблицу People
                             db.People.Add(r);
                             break;
 
                         case mode.Update:
+                            // Находим запись таблицы People по id
                             r = db.People.Find(ID);
+                            // Заполняем её значениями из полей диалог. окна
                             FillObject(r);
                             break;
                     }
+                    // Сохраняем изменения
                     db.SaveChanges();
+                    // Обновляем страницу, которая вызвала это диалог. окно
                     CurPage.UpdateGrid(r.PeopleID);
                 }
             }
@@ -111,12 +122,18 @@ namespace Client_serv.Dialogs
 
         private void FillFields()
         {
+            // Открывается соединени
             using (HOSTELEntities db = new HOSTELEntities())
             {
+                // Подгружаем таблицу Sexes, чтобы она хранилась локально
                 db.Sexes.Load();
-                cbSexes.ItemsSource = from i in db.Sexes.Local select new { i.SexID, i.Sex };
+                // Источником для комбобокса указываем таблицу Sexes
+                cbSexes.ItemsSource = db.Sexes.Local;
+                // Элемент комбобокса будет отображать значение поля Sex
                 cbSexes.DisplayMemberPath = "Sex";
+                // Элемент комбобокса будет хранить значение поля SexID
                 cbSexes.SelectedValuePath = "SexID";
+                // Установка заголовка в зависимости от действия, которое выбрал пользователь (Удаление, изменение, добавление)
                 switch (CurMode)
                 {
                     case mode.Add:
@@ -130,7 +147,9 @@ namespace Client_serv.Dialogs
                     case mode.Update:
                         Title = "Изменение";
                     fill:
+                        // Находим запись с ID, который передали в диалоговое окно при создании
                         People p = db.People.Find(ID);
+                        // Далее заполняем значениями текстбоксы, dateTimePicker, и выбираем значение у комбобокса
                         TbName.Text = p.Name;
                         dpBirthDate.SelectedDate = p.BirthDate;
                         cbSexes.SelectedValue = p.SexID;
@@ -140,18 +159,23 @@ namespace Client_serv.Dialogs
                         // Подгрузка картинки
                         if (p.ImageData != null)
                         {
+                            // MemoryStream - используется для чтения или записи массива байт (Картинка - набор байт)
+                            // Сразу инициализируем массивом байт будущей картинки
                             MemoryStream stream = new MemoryStream(p.ImageData);
+                            // img - картинка, которую мы будем передавать на форму
                             BitmapImage img = new BitmapImage();
+                            // Инициализация картинки
                             img.BeginInit();
                             img.StreamSource = stream;
                             img.EndInit();
+                            // Указываем источник для картинки на форме, созданный на форме картинку из БД
                             Picture.Source = img;
                         }
                         break;
                 }
             }
         }
-
+        // Этот метод заполняет объект значениями из полей диалогового окна
         private void FillObject(People p)
         {
             using(HOSTELEntities db = new HOSTELEntities())
@@ -162,23 +186,39 @@ namespace Client_serv.Dialogs
                 p.PspNum = TbPsp.Text;
                 p.PhoneNum = TbPhoneNumber.Text;
                 p.Email = TbEmail.Text;
+                // Картинка => массив байтов
                 if(Picture.Source.ToString() != "pack://application:,,,/Images/unknownImage.png")
                 {
                     MemoryStream memStream = new MemoryStream();
+                    // JpegBitmapEncoder - кодирует изображения формата jpeg  
                     JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+                    // Добавлем к кадрам, которые нужно закодировать нашу картинку с формы, предварительно приведя к типу BitMapFrame
                     encoder.Frames.Add(BitmapFrame.Create(Picture.Source as BitmapImage));
+                    // Кодирует изображение и сохраняет в поток memStream
                     encoder.Save(memStream);
+                    // Поток преобразуем в массив байт, и передаём в объект, полученный через параметры
                     p.ImageData=memStream.ToArray();
                 }
             }
         }
 
+        // обработчик клика кнопки 'Выбрать изображение'
         private void selectImage_Click(object sender, RoutedEventArgs e)
         {
+            // Открыватся окно для выбора файла
             OpenFileDialog ofd = new OpenFileDialog();
+            // Устанавливаем какие расширения файлов можно выбирать - "Название файлов | *.расширение"
+            ofd.Filter = "Jpeg files |*.jpg";
+            // Устанавливаем заголовок
+            ofd.Title = "Выберите изображение";
+            // Если пользователь нажал кнопку ок, то возвращается true, иначе false
             if(ofd.ShowDialog()?? false)
             {
-                Picture.Source = new BitmapImage(new Uri(ofd.FileName,UriKind.Absolute));
+                // Uri указатель на файл, в параметрах передаётся путь до файла и тип указателя абсолютный
+                // т.е передаётся весь путь до файла. Есть ещё тип Relative, тогда нужно путь указывать относительно расположения приложения
+                Uri u = new Uri(ofd.FileName, UriKind.Absolute);
+                // Создаём в памяти BitmapImage и передаём туда указатель на картинку, которую выбрал польз-ль и делаем её источником для объекта Image в диалог. окне
+                Picture.Source = new BitmapImage(u);
             }
         }
     }

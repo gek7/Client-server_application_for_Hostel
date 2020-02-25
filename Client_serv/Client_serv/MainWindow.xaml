@@ -9,17 +9,18 @@
     <Grid x:Name="gr">
 
         <!-- Кол-во строк -->
+        <!--
+            Height - высота строки
+            'auto' = Высота строки равна высоте самого высокого компонента
+            '*' = Заполняет всё оставшееся пространство (Если строк со звёздочками несколько, 
+            то место между ними делится равномерно)
+        -->
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="70"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <!--
-            'auto' = Высота строки равна высоте самого высокого компонента
-            '*' = Заполняет всё оставшееся пространство (Если строк звёздочек несколько, 
-            то место между ними делится равномерно)
-        -->
 
         <Menu Grid.Row="0"  VerticalAlignment="Top">
             <MenuItem Header="Справочники">

@@ -76,17 +76,23 @@ namespace Client_serv.Dialogs
 
                         case mode.Copy:
                         addPost:
+                            // В переменную SqlQuery передаётся запрос на добавление записи в таблицу
                             SqlQuery = $"INSERT INTO GROUPS (GroupName) VALUES ('{TbGroups.Text}')";
                             break;
 
                         case mode.Update:
+                            // В переменную SqlQuery передаётся запрос на изменение записи в таблице
                             SqlQuery = $"UPDATE GROUPS SET GroupName='{TbGroups.Text}' where GroupId={ID}";
                             break;
                     }
                     SqlCommand command = new SqlCommand(SqlQuery, connection);
+                    // Выполняется запрос без возвращаемого значения
                     command.ExecuteNonQuery();
+                    // В command передаёт новый запрос, который при выполнении вернёт последнюю добавленную запись
                     command = new SqlCommand("SELECT IDENT_CURRENT ('GROUPS')", connection);
+                    // Выполняется запрос, который возвращает id последней добавленной записи и преобразуется в стровку, а из строки в int
                     int id =int.Parse(command.ExecuteScalar().ToString());
+                    // Обновление таблицы, которая создала это диалоговое окно
                     CurPage.UpdateGrid(id);
                 }
             }
@@ -120,8 +126,11 @@ namespace Client_serv.Dialogs
                             connection.Open();
                             string SqlQuery = $"Select * from Groups where(GroupID={ID})";
                             SqlCommand command = new SqlCommand(SqlQuery, connection);
+                            // Создаётся SqlDataReader для считывания значений из запроса
                             SqlDataReader reader = command.ExecuteReader();
+                            // Переходит к следующей записи (с нулевой на 1-ую)
                             reader.Read();
+                            // В reader передаём какое поле нужно получить и в какой тип данных преобразовать 
                             TbGroups.Text=reader.GetString(1);
                         }
                         break;

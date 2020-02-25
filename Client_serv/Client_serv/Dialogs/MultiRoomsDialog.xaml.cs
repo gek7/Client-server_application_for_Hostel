@@ -121,13 +121,13 @@ namespace Client_serv.Dialogs
             {
                 // Заполнение значениями комбобокс, в котором отображаются корпуса
                 db.Buildings.Load();
-                cbBuilding.ItemsSource = from i in db.Buildings.Local select new { i.BuildingID, i.Name };
+                cbBuilding.ItemsSource = db.Buildings.Local;
                 cbBuilding.DisplayMemberPath = "Name";
                 cbBuilding.SelectedValuePath = "BuildingID";
 
                 // Заполнение значениями комбобокс, в котором отображаются типы комнат
                 db.RoomTypes.Load();
-                cbRoomType.ItemsSource = from i in db.RoomTypes.Local select new { i.RtyID, i.RoomType };
+                cbRoomType.ItemsSource = db.RoomTypes.Local;
                 cbRoomType.DisplayMemberPath = "RoomType";
                 cbRoomType.SelectedValuePath = "RtyID";
                 switch (CurMode)
