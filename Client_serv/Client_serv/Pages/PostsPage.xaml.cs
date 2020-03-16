@@ -37,6 +37,7 @@ namespace Client_serv
         public void UpdateGrid(int selectID)
         {
             HelperClass.SaveSortDataGrid(dg);
+            
             if (selectID == -1) selectID = (int)(dg?.SelectedValue ?? -1);
             using (HOSTELEntities h = new HOSTELEntities())
             {
@@ -51,7 +52,13 @@ namespace Client_serv
             }
             dg.SelectedValue = selectID;
             if (dg.SelectedIndex > -1)
+            {
                 dg.ScrollIntoView(dg.SelectedItem);
+            }
+            else if (dg.SelectedIndex == -1 && dg.Items.Count > 0)
+            {
+                dg.SelectedIndex = 0;
+            }
             HelperClass.LoadSortDataGrid(dg);
         }
 

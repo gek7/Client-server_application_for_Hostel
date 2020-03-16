@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Client_serv.Dialogs"
         mc:Ignorable="d"
-        Title="RoomsDialog" Height="350" Width="270" ResizeMode="NoResize">
+        Title="RoomsDialog" Height="350" Width="270" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -24,10 +24,10 @@
         </StackPanel>
 
         <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="150" Margin="0,112,0,70.5">
-            <ComboBox x:Name="cbBuilding" Height="20"/>
+            <ComboBox x:Name="cbBuilding" Height="20" />
             <TextBox x:Name="TbNum" Height="20"/>
             <TextBox x:Name="TbRoomPlaces" Height="20"/>
-            <ComboBox x:Name="cbRoomType" Height="20"/>
+            <ComboBox x:Name="cbRoomType" Height="20" />
         </StackPanel>
         <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Button x:Name="BtnOk" Content="Ок" Width="75" Height="25" Margin="5" Click="BtnOk_Click"/>

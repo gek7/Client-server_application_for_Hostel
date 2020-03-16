@@ -51,6 +51,7 @@ namespace Client_serv.Pages
             // Обновление таблицы данных 'Корпуса'
             DataGrid dg = dgBuildings;
             HelperClass.SaveSortDataGrid(dg);
+            
             // В using происходит обращение к БД и выборка значений из таблицы 'Корпуса'
             if (selectID == -1) selectID = (int)(dg?.SelectedValue ?? -1);
             using (HOSTELEntities h = new HOSTELEntities())
@@ -68,7 +69,13 @@ namespace Client_serv.Pages
             }
             dg.SelectedValue = selectID;
             if (dg.SelectedIndex > -1)
+            {
                 dg.ScrollIntoView(dg.SelectedItem);
+            }
+            else if (dg.SelectedIndex == -1 && dg.Items.Count > 0)
+            {
+                dg.SelectedIndex = 0;
+            }
             HelperClass.LoadSortDataGrid(dg);
         }
 
@@ -101,7 +108,13 @@ namespace Client_serv.Pages
             }
             dg.SelectedValue = selectID;
             if (dg.SelectedIndex > -1)
-                    dg.ScrollIntoView(dg.SelectedItem);
+            {
+                dg.ScrollIntoView(dg.SelectedItem);
+            }
+            else if (dg.SelectedIndex == -1 && dg.Items.Count > 0)
+            {
+                dg.SelectedIndex = 0;
+            }
             HelperClass.LoadSortDataGrid(dg);
         }
 

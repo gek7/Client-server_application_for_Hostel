@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Client_serv.Dialogs"
         mc:Ignorable="d"
-        Title="PostsDialog" Height="300" Width="270" ResizeMode="NoResize">
+        Title="PostsDialog" Height="300" Width="270" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>

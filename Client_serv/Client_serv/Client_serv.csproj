@@ -151,9 +151,6 @@
     <Compile Include="Students.cs">
       <DependentUpon>HOSTEL.tt</DependentUpon>
     </Compile>
-    <Compile Include="sysdiagrams.cs">
-      <DependentUpon>HOSTEL.tt</DependentUpon>
-    </Compile>
     <Compile Include="Workers.cs">
       <DependentUpon>HOSTEL.tt</DependentUpon>
     </Compile>
@@ -301,6 +298,12 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\close2.png" />
+    <Resource Include="Images\MultiTable.png" />
+    <Resource Include="Images\table_roomTypes.png" />
+    <Resource Include="Images\unknownImage.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="HOSTEL.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>HOSTEL.edmx</DependentUpon>
@@ -311,10 +314,6 @@
       <DependentUpon>HOSTEL.edmx</DependentUpon>
       <LastGenOutput>HOSTEL.cs</LastGenOutput>
     </Content>
-    <Resource Include="Images\close2.png" />
-    <Resource Include="Images\MultiTable.png" />
-    <Resource Include="Images\table_roomTypes.png" />
-    <Resource Include="Images\unknownImage.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

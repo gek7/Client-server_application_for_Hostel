@@ -34,7 +34,6 @@ namespace Client_serv
         public DbSet<RoomTypes> RoomTypes { get; set; }
         public DbSet<Sexes> Sexes { get; set; }
         public DbSet<Students> Students { get; set; }
-        public DbSet<sysdiagrams> sysdiagrams { get; set; }
         public DbSet<Workers> Workers { get; set; }
     }
 }

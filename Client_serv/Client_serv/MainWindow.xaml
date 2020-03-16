@@ -60,7 +60,7 @@
                 </Grid>
             </Button>
 
-            <Button   Margin="5,0,0,0" Click="table_rooms_Click" Width="80" Background="LightGreen">
+            <Button   Margin="5,0,0,0" Click="table_rooms_Click" Width="80" Background="LightGreen" Focusable="False">
                 <Grid Height="60">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"/>
@@ -146,8 +146,7 @@
                 </Grid>
             </Button>
         </StackPanel>
-        <TabControl  Grid.Row="2" TabStripPlacement="Bottom" Name="pages" SelectionChanged="pages_SelectionChanged">
-        </TabControl>
+        <TabControl  Grid.Row="2" TabStripPlacement="Bottom" Name="pages" SelectionChanged="pages_SelectionChanged"/>
         <StatusBar Grid.Row="3" Height="20" VerticalAlignment="Bottom">
             <StatusBarItem HorizontalAlignment="Right">
                 <TextBlock x:Name="CurTime" Text="time" VerticalAlignment="Center"/>

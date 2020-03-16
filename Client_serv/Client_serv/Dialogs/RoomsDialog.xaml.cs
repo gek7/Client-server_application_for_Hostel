@@ -124,12 +124,14 @@ namespace Client_serv.Dialogs
                 cbBuilding.ItemsSource = db.Buildings.Local;
                 cbBuilding.DisplayMemberPath = "Name";
                 cbBuilding.SelectedValuePath = "BuildingID";
+                if (cbBuilding.Items.Count > 0) cbBuilding.SelectedIndex = 0;
 
                 // Заполнение значениями комбобокс, в котором отображаются типы комнат
                 db.RoomTypes.Load();
                 cbRoomType.ItemsSource = db.RoomTypes.Local;
                 cbRoomType.DisplayMemberPath = "RoomType";
                 cbRoomType.SelectedValuePath = "RtyID";
+                if (cbRoomType.Items.Count > 0) cbRoomType.SelectedIndex = 0;
                 switch (CurMode)
                 {
                     case mode.Add:

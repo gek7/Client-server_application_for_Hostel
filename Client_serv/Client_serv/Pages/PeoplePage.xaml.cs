@@ -46,6 +46,7 @@ namespace Client_serv.Pages
             HelperClass.SaveSortDataGrid(dg);
             //Если ID=-1, то изменить параметр selectID на ID записи, которая была выбрана до обновления таблицы
             // Если же её нет, то присвоить -1 | dg.SelectedValue возвращает ID выбранной записи. Про ? и ?? - https://metanit.com/sharp/tutorial/3.26.php
+            
             if (selectID == -1) selectID = (int)(dg?.SelectedValue ?? -1);
             // Создания подключения
             using (HOSTELEntities db = new HOSTELEntities())
@@ -75,7 +76,13 @@ namespace Client_serv.Pages
             dg.SelectedValue = selectID;
             // -1 = ничего не выбрано, след-но условие: если выбрана какая-нибудь запись
             if (dg.SelectedIndex > -1)
+            {
                 dg.ScrollIntoView(dg.SelectedItem); // Прокрутить до выбранной записи
+            }
+            else if (dg.SelectedIndex == -1 && dg.Items.Count > 0)
+            {
+                dg.SelectedIndex = 0;
+            } 
             HelperClass.LoadSortDataGrid(dg); // В самом начале мы сохраняли сортировку, теперь выгружаем обратно.
             // Вызвать функцию для обновления картинки
             UpdateImage();

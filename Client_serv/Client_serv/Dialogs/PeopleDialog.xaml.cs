@@ -133,6 +133,7 @@ namespace Client_serv.Dialogs
                 cbSexes.DisplayMemberPath = "Sex";
                 // Элемент комбобокса будет хранить значение поля SexID
                 cbSexes.SelectedValuePath = "SexID";
+                if (cbSexes.Items.Count > 0) cbSexes.SelectedIndex = 0;
                 // Установка заголовка в зависимости от действия, которое выбрал пользователь (Удаление, изменение, добавление)
                 switch (CurMode)
                 {

@@ -41,7 +41,8 @@ namespace Client_serv.Pages
         {
             // Сохранение сортировки в статические поля класса HelperClass
             HelperClass.SaveSortDataGrid(dg);
-            // Если переданный в метод ID == -1, то оставить выбранный элемент
+            // Если переданный в метод ID == -1, то оставить выбранный элемент или поставить в первый элемент
+            
             if (selectID == -1) selectID = (int)(dg?.SelectedValue ?? -1);
             //Создание соединения с БД
             using (SqlConnection connection = new SqlConnection(MainWindow.connectionString))
@@ -67,8 +68,13 @@ namespace Client_serv.Pages
             dg.SelectedValue = selectID;
             // Если выбрана какая-то строка
             if (dg.SelectedIndex > -1)
-                // Прокрутить до выбранной строки
+            {
                 dg.ScrollIntoView(dg.SelectedItem);
+            }
+            else if (dg.SelectedIndex == -1 && dg.Items.Count > 0)
+            {
+                dg.SelectedIndex = 0;
+            }
             // Вернуть сортировку (Во время обновления данных сортировка сбрасывается, для этого мы её сохраняли)
             HelperClass.LoadSortDataGrid(dg);
         }

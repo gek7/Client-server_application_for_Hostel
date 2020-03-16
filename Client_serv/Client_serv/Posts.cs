@@ -14,9 +14,14 @@ namespace Client_serv
     
     public partial class Posts
     {
+        public Posts()
+        {
+            this.Workers = new HashSet<Workers>();
+        }
+    
         public int PostID { get; set; }
         public string Post { get; set; }
     
-        public virtual Workers Workers { get; set; }
+        public virtual ICollection<Workers> Workers { get; set; }
     }
 }

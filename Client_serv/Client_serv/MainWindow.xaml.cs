@@ -84,6 +84,7 @@ namespace Client_serv
                 // (Чтобы посмотреть для чего нужен этот интерфейс зажмите ctrl и нажмите на Ipage)
                 Ipage ipage = ((pages.SelectedItem as TabItem).Content as Frame).Content as Ipage;
                     // Обновление таблицы данных у вкладки, которая сейчас открыта
+                if(ipage!=null)
                     ipage.UpdateGrid();
             }
         }
@@ -149,11 +150,12 @@ namespace Client_serv
             // скрываем навигационный интерфейс у фрейма (Стрелки вперёд и назад* Фрейм может переключаться по страницам вперёд и назад как браузер, сейчас нам это не нужно)
             f.NavigationUIVisibility = NavigationUIVisibility.Hidden;
             // Мы можем без проблем передать во Frame ссылку на страницу, так как метод Navigate принимает тип данных object
-            f.Navigate(page);
+            f.Content=page;
             // В созданную вкладку кладём новый Frame
             t.Content = f;
             // В TabControl добавляем новую вкладку
             pages.Items.Add(t);
-        }
+            pages.SelectedItem = t;
+       }
     }
 }

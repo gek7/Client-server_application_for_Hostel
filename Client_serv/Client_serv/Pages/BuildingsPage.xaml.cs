@@ -54,8 +54,16 @@ namespace Client_serv.Pages
             }
             dg.SelectedValue = selectID;
             if (dg.SelectedIndex > -1)
-            dg.ScrollIntoView(dg.SelectedItem);
+            {
+                dg.ScrollIntoView(dg.SelectedItem);
+            }
+            else if (dg.SelectedIndex==-1 && dg.Items.Count>0) 
+            {
+                dg.SelectedIndex = 0;
+            }
+
             HelperClass.LoadSortDataGrid(dg);
+
         }
 
         public void UpdateGrid()
