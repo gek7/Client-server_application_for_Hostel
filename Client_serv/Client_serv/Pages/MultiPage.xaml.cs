@@ -27,6 +27,20 @@ namespace Client_serv.Pages
         public MultiPage()
         {
             InitializeComponent();
+            dgBuildings.MouseDoubleClick += DgBuildings_MouseDoubleClick;
+            dgRooms.MouseDoubleClick += DgRooms_MouseDoubleClick;
+        }
+
+        private void DgRooms_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            MultiRoomsDialog b = new MultiRoomsDialog(mode.Update, this, (int)dgRooms.SelectedValue);
+            b.Show();
+        }
+
+        private void DgBuildings_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            MultiBuildingsDialog b = new MultiBuildingsDialog(mode.Update, this, (int)dgBuildings.SelectedValue);
+            b.Show();
         }
 
         public MultiPage(MainWindow _OwnerPage) : this()

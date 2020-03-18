@@ -26,7 +26,15 @@ namespace Client_serv.Pages
         public BuildingsPage()
         {
             InitializeComponent();
+            dg.MouseDoubleClick += Dg_MouseDoubleClick;
         }
+
+        private void Dg_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            BuildingsDialog dialog = new BuildingsDialog(mode.Update, this, (int)dg.SelectedValue);
+            dialog.ShowDialog();
+        }
+
         public BuildingsPage(MainWindow _OwnerPage) : this()
         {
             UpdateGrid();

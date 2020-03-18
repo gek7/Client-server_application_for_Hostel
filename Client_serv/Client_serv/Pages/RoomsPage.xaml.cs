@@ -28,7 +28,15 @@ namespace Client_serv.Pages
         public RoomsPage()
         {
             InitializeComponent();
+            dg.MouseDoubleClick += Dg_MouseDoubleClick;
         }
+
+        private void Dg_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            RoomsDialog dialog = new RoomsDialog(mode.Update, this, (int)dg.SelectedValue);
+            dialog.ShowDialog();
+        }
+
         public RoomsPage(MainWindow _OwnerPage) : this()
         {
             UpdateGrid();

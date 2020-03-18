@@ -32,7 +32,15 @@ namespace Client_serv.Pages
         public PeoplePage()
         {
             InitializeComponent();
+            dg.MouseDoubleClick += Dg_MouseDoubleClick;
         }
+
+        private void Dg_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            PeopleDialog dialog = new PeopleDialog(mode.Update, this, (int)dg.SelectedValue);
+            dialog.ShowDialog();
+        }
+
         public PeoplePage(MainWindow _OwnerPage) : this()
         {
             UpdateGrid();

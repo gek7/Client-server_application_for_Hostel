@@ -26,7 +26,15 @@ namespace Client_serv
         public PostsPage()
         {
             InitializeComponent();
+            dg.MouseDoubleClick += Dg_MouseDoubleClick;
         }
+
+        private void Dg_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            PostsDialog dialog = new PostsDialog(mode.Update, this, (int)dg.SelectedValue);
+            dialog.ShowDialog();
+        }
+
         public PostsPage(MainWindow _OwnerPage) :this()
         {
             UpdateGrid();

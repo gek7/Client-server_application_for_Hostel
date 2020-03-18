@@ -29,7 +29,15 @@ namespace Client_serv.Pages
         public GroupsPage()
         {
             InitializeComponent();
+            dg.MouseDoubleClick += Dg_MouseDoubleClick;
         }
+
+        private void Dg_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            GroupsDialog dialog = new GroupsDialog(mode.Update, this, (int)dg.SelectedValue);
+            dialog.ShowDialog();
+        }
+
         public GroupsPage(MainWindow _OwnerPage) : this()
         {
             UpdateGrid();
