@@ -1,0 +1,47 @@
+﻿<Window x:Class="Client_serv.Dialogs.ContractsDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Client_serv.Dialogs"
+        mc:Ignorable="d"
+          Title="RoomsDialog" Height="450" Width="350" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,0,10,0">
+            <TextBlock Text="Человек" Height="20" />
+            <TextBlock Text="Дата заключения договора" Height="20" />
+            <TextBlock Text="Планируемая дата въезда" Height="20" />
+            <TextBlock Text="Планируемая дата выезда" Height="20" />
+            <TextBlock Text="Приоритет" Height="20" />
+            <TextBlock Text="Подписан" Height="20" />
+            <TextBlock Text="Действительная дата выезда" Height="20" />
+            <TextBlock Text="Комната" Height="20" />
+            <TextBlock Text="Дата расторжения договора" Height="20" />
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="160">
+            <ComboBox x:Name="cbPeople" Height="20"/>
+            <DatePicker x:Name="dpDocDate" Height="20" FontSize="10px" />
+            <DatePicker x:Name="dpPlanBegDate" Height="20" FontSize="10px" />
+            <DatePicker x:Name="dpPlanEndDate" Height="20" FontSize="10px" />
+            <TextBox x:Name="tbPriority" Height="20"/>
+            <CheckBox x:Name="cbox"  Height="20"/>
+            <DatePicker x:Name="dpActualEndDate" Height="20" FontSize="10px" />
+            <ComboBox x:Name="cbRooms" Height="20"/>
+            <DatePicker x:Name="dpAppDate" Height="20" FontSize="10px"/>
+        </StackPanel>
+        <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Button x:Name="BtnOk" Content="Ок" Width="75" Height="25" Margin="5" Click="BtnOk_Click"/>
+            <Button x:Name="BtnCancel" Content="Отмена" Width="75" Height="25" Margin="5" Click="BtnCancel_Click" />
+        </StackPanel>
+    </Grid>
+</Window>

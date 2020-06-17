@@ -135,11 +135,26 @@ namespace Client_serv
             MultiPage p = new MultiPage(this);
             AddNewTab(p, "Корпуса/Комнаты");
         }
+        private void table_students_Click(object sender, RoutedEventArgs e)
+        {
+            StudentsPage p = new StudentsPage(this);
+            AddNewTab(p, "Студенты");
+        }
+        private void table_workers_Click(object sender, RoutedEventArgs e)
+        {
+            WorkersPage p = new WorkersPage(this);
+            AddNewTab(p, "Работники");
+        }
+        private void table_contracts_Click(object sender, RoutedEventArgs e)
+        {
+            ContractsPage p = new ContractsPage(this);
+            AddNewTab(p, "Договора");
+        }
         #endregion
 
-      // Первым параметром передаётся страница, т.к всё наследуется от object,
-      // то мы можем любую страницу передать через этот параметр
-       private void AddNewTab (object page,string TabHeader )
+        // Первым параметром передаётся страница, т.к всё наследуется от object,
+        // то мы можем любую страницу передать через этот параметр
+        private void AddNewTab (object page,string TabHeader )
         {
             // Объявляем новую вкладку (Которая сейчас не относится ни к одному TabControl)
             TabItem t = new TabItem();
@@ -149,9 +164,9 @@ namespace Client_serv
             Frame f = new Frame();
             // скрываем навигационный интерфейс у фрейма (Стрелки вперёд и назад* Фрейм может переключаться по страницам вперёд и назад как браузер, сейчас нам это не нужно)
             f.NavigationUIVisibility = NavigationUIVisibility.Hidden;
-            // Мы можем без проблем передать во Frame ссылку на страницу, так как метод Navigate принимает тип данных object
+            // Мы можем без проблем передать во Frame ссылку на страницу, так как свойство Content принимает тип object
             f.Content=page;
-            // В созданную вкладку кладём новый Frame
+            // В созданную вкладку помещаем новый Frame
             t.Content = f;
             // В TabControl добавляем новую вкладку
             pages.Items.Add(t);

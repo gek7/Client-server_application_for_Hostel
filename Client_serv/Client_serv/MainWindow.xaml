@@ -31,7 +31,7 @@
             <MenuItem x:Name="close_app" Header="Выход" Click="close_app_Click"/>
         </Menu>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
-            <Button  Margin="5,0,0,0" Width="80" >
+            <Button x:Name="table_contracts"  Margin="5,0,0,0" Width="80" Click="table_contracts_Click" Background="LightGreen">
                 <Grid Height="60">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"/>
@@ -93,7 +93,7 @@
                 </Grid>
             </Button>
 
-            <Button  Margin="5,0,0,0" Width="80">
+            <Button x:Name="table_students"  Margin="5,0,0,0" Width="80" Click="table_students_Click" Background="LightGreen">
                 <Grid Height="60">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"/>
@@ -104,7 +104,7 @@
                 </Grid>
             </Button>
 
-            <Button  Margin="5,0,0,0" Width="80" >
+            <Button x:Name="table_workers"  Margin="5,0,0,0" Width="80" Click="table_workers_Click" Background="LightGreen">
                 <Grid Height="60">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"/>

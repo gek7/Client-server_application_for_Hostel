@@ -17,19 +17,19 @@ using System.Windows.Shapes;
 namespace Client_serv.Dialogs
 {
     /// <summary>
-    /// Логика взаимодействия для RoomsDialog.xaml
+    /// Логика взаимодействия для ContractsDialog.xaml
     /// </summary>
-    public partial class RoomsDialog : Window
+    public partial class ContractsDialog : Window
     {
-        RoomsPage CurPage;
+        ContractsPage CurPage;
         mode CurMode;
         int ID;
-        public RoomsDialog()
+        public ContractsDialog()
         {
             InitializeComponent();
         }
 
-        public RoomsDialog(mode dialogMode, RoomsPage page, int fieldID = -1) : this()
+        public ContractsDialog(mode dialogMode, ContractsPage page, int fieldID = -1) : this()
         {
             CurMode = dialogMode;
             ID = fieldID;
@@ -53,28 +53,31 @@ namespace Client_serv.Dialogs
 
         bool Check()
         {
-            if (cbBuilding.SelectedIndex==-1)
+
+           
+            if (cbPeople.SelectedIndex == -1)
             {
-                MessageBox.Show("Комната не может быть без корпуса! Выберите корпус");
+                MessageBox.Show("Договор должен быть связан с человеком");
                 return false;
             }
-            if (cbRoomType.SelectedIndex == -1)
+            if (cbRooms.SelectedIndex == -1)
             {
-                MessageBox.Show("Комната должна быть какого-то типа! Выберите тип комнаты");
+                MessageBox.Show("Договор должен быть связан с комнатой");
                 return false;
             }
-            if (TbNum.Text.Trim()=="")
+            if (cbRooms.SelectedIndex == -1)
             {
-                MessageBox.Show("Комната не может быть без номера! Заполните поле 'Номер комнаты'");
+                MessageBox.Show("Договор должен быть связан с комнатой");
                 return false;
             }
-            try
+            if (dpDocDate.SelectedDate > dpAppDate.SelectedDate) 
             {
-                int.Parse(TbRoomPlaces.Text);
+                MessageBox.Show("Дата заключения не может быть больше даты расторжения");
+                return false;
             }
-            catch
+            if (dpPlanBegDate.SelectedDate > dpPlanEndDate.SelectedDate)
             {
-                MessageBox.Show("Поле кол-во комнат должно быть числом!");
+                MessageBox.Show("Дата въезда не может быть больше даты выезда");
                 return false;
             }
             return true;
@@ -86,7 +89,7 @@ namespace Client_serv.Dialogs
             {
                 using (HOSTELEntities db = new HOSTELEntities())
                 {
-                    Rooms r = new Rooms();
+                    Contracts r = new Contracts();
                     switch (CurMode)
                     {
                         case mode.Add:
@@ -95,16 +98,16 @@ namespace Client_serv.Dialogs
                         case mode.Copy:
                         addRoom:
                             FillObject(r);
-                            db.Rooms.Add(r);
+                            db.Contracts.Add(r);
                             break;
 
                         case mode.Update:
-                            r = db.Rooms.Find(ID);
+                            r = db.Contracts.Find(ID);
                             FillObject(r);
                             break;
                     }
                     db.SaveChanges();
-                    CurPage.UpdateGrid(r.RoomID);
+                    CurPage.UpdateGrid(r.ContractID);
                 }
             }
             catch (Exception e)
@@ -128,18 +131,18 @@ namespace Client_serv.Dialogs
             using (HOSTELEntities db = new HOSTELEntities())
             {
                 // Заполнение значениями комбобокс, в котором отображаются корпуса
-                db.Buildings.Load();
-                cbBuilding.ItemsSource = db.Buildings.Local;
-                cbBuilding.DisplayMemberPath = "Name";
-                cbBuilding.SelectedValuePath = "BuildingID";
-                if (cbBuilding.Items.Count > 0) cbBuilding.SelectedIndex = 0;
+                db.People.Load();
+                cbPeople.ItemsSource = db.People.Local;
+                cbPeople.DisplayMemberPath = "Name";
+                cbPeople.SelectedValuePath = "PeopleID";
+                if (cbPeople.Items.Count > 0) cbPeople.SelectedIndex = 0;
 
                 // Заполнение значениями комбобокс, в котором отображаются типы комнат
-                db.RoomTypes.Load();
-                cbRoomType.ItemsSource = db.RoomTypes.Local;
-                cbRoomType.DisplayMemberPath = "RoomType";
-                cbRoomType.SelectedValuePath = "RtyID";
-                if (cbRoomType.Items.Count > 0) cbRoomType.SelectedIndex = 0;
+                db.Rooms.Load();
+                cbRooms.ItemsSource = db.Rooms.Local;
+                cbRooms.DisplayMemberPath = "Num";
+                cbRooms.SelectedValuePath = "RoomID";
+                if (cbRooms.Items.Count > 0) cbRooms.SelectedIndex = 0;
                 switch (CurMode)
                 {
                     case mode.Add:
@@ -153,22 +156,31 @@ namespace Client_serv.Dialogs
                     case mode.Update:
                         Title = "Изменение";
                     fill:
-                        Rooms r = db.Rooms.Find(ID);
-                        cbBuilding.SelectedValue = r.BuildingID;
-                        TbNum.Text = r.Num;
-                        TbRoomPlaces.Text = r.PlacesCount?.ToString() ?? "0";
-                        cbRoomType.SelectedValue = r.RtyID;
+                        Contracts r = db.Contracts.Find(ID);
+                        cbPeople.SelectedValue = r.PeopleID;
+                        dpDocDate.SelectedDate = r.DocDate;
+                        dpPlanBegDate.SelectedDate = r.PlanBegDate;
+                        dpPlanEndDate.SelectedDate = r.PlanEndDate;
+                        tbPriority.Text = r.Priority;
+                        cbox.IsChecked = r.Signed ?? false;
+                        dpActualEndDate.SelectedDate = r.ActualEndDate;
+                        cbRooms.SelectedValue = r.RoomID;
+                        dpAppDate.SelectedDate = r.AppDate;
                         break;
                 }
             }
         }
 
-        private void FillObject(Rooms r)
+        private void FillObject(Contracts r)
         {
-            r.BuildingID = (int?)cbBuilding.SelectedValue;
-            r.Num = TbNum.Text;
-            r.PlacesCount = Convert.ToInt32(TbRoomPlaces.Text);
-            r.RtyID = (int?)cbRoomType.SelectedValue;
+            r.PeopleID = (int?)cbPeople.SelectedValue;
+            r.DocDate = dpDocDate.SelectedDate;
+            r.PlanBegDate = dpPlanBegDate.SelectedDate;
+            r.PlanEndDate = dpPlanEndDate.SelectedDate;
+            r.Priority = tbPriority.Text;
+            r.Signed = cbox.IsChecked;
+            r.ActualEndDate = dpActualEndDate.SelectedDate;
+            r.RoomID =(int?) cbRooms.SelectedValue;
         }
     }
 }

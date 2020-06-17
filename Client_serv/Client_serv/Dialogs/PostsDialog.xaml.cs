@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Client_serv;
+using System.Data.SqlClient;
 
 namespace Client_serv.Dialogs
 {
@@ -89,7 +90,14 @@ namespace Client_serv.Dialogs
             }
             catch(Exception e)
             {
-                MessageBox.Show($"Ошибка при сохранении \n {e.Message}");
+                if (e.HResult == -2146233087)
+                {
+                    MessageBox.Show($"Такая должность уже существует");
+                }
+                else
+                {
+                    MessageBox.Show($"Ошибка при сохранении \n {e.Message}");
+                }
                 return false;
             }
             return true;

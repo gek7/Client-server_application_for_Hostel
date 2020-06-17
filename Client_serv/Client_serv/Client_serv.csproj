@@ -75,6 +75,9 @@
     <Compile Include="Dialogs\BuildingsDialog.xaml.cs">
       <DependentUpon>BuildingsDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\ContractsDialog.xaml.cs">
+      <DependentUpon>ContractsDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\GroupsDialog.xaml.cs">
       <DependentUpon>GroupsDialog.xaml</DependentUpon>
     </Compile>
@@ -95,6 +98,12 @@
     </Compile>
     <Compile Include="Dialogs\RoomTypesDialog.xaml.cs">
       <DependentUpon>RoomTypesDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\StudentsDialog.xaml.cs">
+      <DependentUpon>StudentsDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\WorkersDialog.xaml.cs">
+      <DependentUpon>WorkersDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Groups.cs">
       <DependentUpon>HOSTEL.tt</DependentUpon>
@@ -118,6 +127,9 @@
     <Compile Include="Pages\BuildingsPage.xaml.cs">
       <DependentUpon>BuildingsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\ContractsPage.xaml.cs">
+      <DependentUpon>ContractsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\GroupsPage.xaml.cs">
       <DependentUpon>GroupsPage.xaml</DependentUpon>
     </Compile>
@@ -132,6 +144,12 @@
     </Compile>
     <Compile Include="Pages\RoomTypesPage.xaml.cs">
       <DependentUpon>RoomTypesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\StudentsPage.xaml.cs">
+      <DependentUpon>StudentsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\WorkersPage.xaml.cs">
+      <DependentUpon>WorkersPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="People.cs">
       <DependentUpon>HOSTEL.tt</DependentUpon>
@@ -155,6 +173,10 @@
       <DependentUpon>HOSTEL.tt</DependentUpon>
     </Compile>
     <Page Include="Dialogs\BuildingsDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\ContractsDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -186,7 +208,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Dialogs\StudentsDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\WorkersDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\BuildingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ContractsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -226,6 +260,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\RoomTypesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\StudentsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\WorkersPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -17,19 +17,19 @@ using System.Windows.Shapes;
 namespace Client_serv.Dialogs
 {
     /// <summary>
-    /// Логика взаимодействия для RoomsDialog.xaml
+    /// Логика взаимодействия для StudentsDialog.xaml
     /// </summary>
-    public partial class RoomsDialog : Window
+    public partial class StudentsDialog : Window
     {
-        RoomsPage CurPage;
+        StudentsPage CurPage;
         mode CurMode;
         int ID;
-        public RoomsDialog()
+        public StudentsDialog()
         {
             InitializeComponent();
         }
 
-        public RoomsDialog(mode dialogMode, RoomsPage page, int fieldID = -1) : this()
+        public StudentsDialog(mode dialogMode, StudentsPage page, int fieldID = -1) : this()
         {
             CurMode = dialogMode;
             ID = fieldID;
@@ -53,28 +53,20 @@ namespace Client_serv.Dialogs
 
         bool Check()
         {
-            if (cbBuilding.SelectedIndex==-1)
+          
+            if (cbPeople.SelectedIndex == -1)
             {
-                MessageBox.Show("Комната не может быть без корпуса! Выберите корпус");
+                MessageBox.Show("За записью справочника студент должна быть закреплена запись из справочника люди!");
                 return false;
             }
-            if (cbRoomType.SelectedIndex == -1)
+            if (dpFinished.SelectedDate < dpAd.SelectedDate) 
             {
-                MessageBox.Show("Комната должна быть какого-то типа! Выберите тип комнаты");
+                MessageBox.Show("Дата зачисления не может быть больше даты выпуска");
                 return false;
             }
-            if (TbNum.Text.Trim()=="")
+            if (cbGroups.SelectedIndex == -1)
             {
-                MessageBox.Show("Комната не может быть без номера! Заполните поле 'Номер комнаты'");
-                return false;
-            }
-            try
-            {
-                int.Parse(TbRoomPlaces.Text);
-            }
-            catch
-            {
-                MessageBox.Show("Поле кол-во комнат должно быть числом!");
+                MessageBox.Show("Студент должен быть закреплён за какой-нибудь группой! Выберите группу!");
                 return false;
             }
             return true;
@@ -86,7 +78,7 @@ namespace Client_serv.Dialogs
             {
                 using (HOSTELEntities db = new HOSTELEntities())
                 {
-                    Rooms r = new Rooms();
+                    Students r = new Students();
                     switch (CurMode)
                     {
                         case mode.Add:
@@ -95,16 +87,16 @@ namespace Client_serv.Dialogs
                         case mode.Copy:
                         addRoom:
                             FillObject(r);
-                            db.Rooms.Add(r);
+                            db.Students.Add(r);
                             break;
 
                         case mode.Update:
-                            r = db.Rooms.Find(ID);
+                            r = db.Students.Find(ID);
                             FillObject(r);
                             break;
                     }
                     db.SaveChanges();
-                    CurPage.UpdateGrid(r.RoomID);
+                    CurPage.UpdateGrid(r.StudentID);
                 }
             }
             catch (Exception e)
@@ -128,18 +120,18 @@ namespace Client_serv.Dialogs
             using (HOSTELEntities db = new HOSTELEntities())
             {
                 // Заполнение значениями комбобокс, в котором отображаются корпуса
-                db.Buildings.Load();
-                cbBuilding.ItemsSource = db.Buildings.Local;
-                cbBuilding.DisplayMemberPath = "Name";
-                cbBuilding.SelectedValuePath = "BuildingID";
-                if (cbBuilding.Items.Count > 0) cbBuilding.SelectedIndex = 0;
+                db.People.Load();
+                cbPeople.ItemsSource = db.People.Local;
+                cbPeople.DisplayMemberPath = "Name";
+                cbPeople.SelectedValuePath = "PeopleID";
+                if (cbPeople.Items.Count > 0) cbPeople.SelectedIndex = 0;
 
                 // Заполнение значениями комбобокс, в котором отображаются типы комнат
-                db.RoomTypes.Load();
-                cbRoomType.ItemsSource = db.RoomTypes.Local;
-                cbRoomType.DisplayMemberPath = "RoomType";
-                cbRoomType.SelectedValuePath = "RtyID";
-                if (cbRoomType.Items.Count > 0) cbRoomType.SelectedIndex = 0;
+                db.Groups.Load();
+                cbGroups.ItemsSource = db.Groups.Local;
+                cbGroups.DisplayMemberPath = "GroupName";
+                cbGroups.SelectedValuePath = "GroupID";
+                if (cbGroups.Items.Count > 0) cbGroups.SelectedIndex = 0;
                 switch (CurMode)
                 {
                     case mode.Add:
@@ -153,22 +145,22 @@ namespace Client_serv.Dialogs
                     case mode.Update:
                         Title = "Изменение";
                     fill:
-                        Rooms r = db.Rooms.Find(ID);
-                        cbBuilding.SelectedValue = r.BuildingID;
-                        TbNum.Text = r.Num;
-                        TbRoomPlaces.Text = r.PlacesCount?.ToString() ?? "0";
-                        cbRoomType.SelectedValue = r.RtyID;
+                        Students r = db.Students.Find(ID);
+                        cbPeople.SelectedValue = r.PeopleID;
+                        dpAd.SelectedDate = r.Ad;
+                        cbGroups.SelectedValue = r.GroupID;
+                        dpFinished.SelectedDate = r.Finished;
                         break;
                 }
             }
         }
 
-        private void FillObject(Rooms r)
+        private void FillObject(Students r)
         {
-            r.BuildingID = (int?)cbBuilding.SelectedValue;
-            r.Num = TbNum.Text;
-            r.PlacesCount = Convert.ToInt32(TbRoomPlaces.Text);
-            r.RtyID = (int?)cbRoomType.SelectedValue;
+            r.PeopleID = (int?)cbPeople.SelectedValue;
+            r.Ad = dpAd.SelectedDate;
+            r.GroupID = (int?)cbGroups.SelectedValue;
+            r.Finished = dpFinished.SelectedDate;
         }
     }
 }

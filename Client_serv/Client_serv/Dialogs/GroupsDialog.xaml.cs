@@ -98,7 +98,14 @@ namespace Client_serv.Dialogs
             }
             catch (Exception e)
             {
-                MessageBox.Show($"Ошибка при сохранении \n {e.Message}");
+                if(e.HResult== -2146232060) 
+                {
+                    MessageBox.Show($"Такое название группы уже существует");
+                }
+                else 
+                {
+                    MessageBox.Show($"Ошибка при сохранении \n {e.Message}");
+                }
                 return false;
             }
             return true;

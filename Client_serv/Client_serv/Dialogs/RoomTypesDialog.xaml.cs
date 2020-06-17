@@ -89,7 +89,14 @@ namespace Client_serv.Dialogs
             }
             catch (Exception e)
             {
-                MessageBox.Show($"Ошибка при сохранении \n {e.Message}");
+                if (e.HResult == -2146233087)
+                {
+                    MessageBox.Show($"Вид с таким названием уже существует");
+                }
+                else
+                {
+                    MessageBox.Show($"Ошибка при сохранении \n {e.Message}");
+                }
                 return false;
             }
             return true;
