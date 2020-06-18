@@ -25,7 +25,7 @@
         <DataGrid x:Name="dg" Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding}" IsReadOnly="True" Grid.Column="0" SelectionMode="Single">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Имя" Width="*" Binding="{Binding Path=Surname}"/>
-                <DataGridTextColumn Header="Дата заключения контракта" Binding="{Binding Path=DocDate}" Width="*"/>
+                <DataGridTextColumn Header="Дата заключения договора" Binding="{Binding Path=DocDate, StringFormat='dd/MM/yyyy'}" Width="*"/>
                 <DataGridTextColumn Header="Запланированная дата въезда" Binding="{Binding Path=PlanBegDate,StringFormat='dd/MM/yyyy'}" Width="*"/>
                 <DataGridTextColumn Header="Запланированная дата выезда" Binding="{Binding Path=PlanEndDate,StringFormat='dd/MM/yyyy'}" Width="*"/>
                 <DataGridTextColumn Header="Приоритет" Binding="{Binding Path=Priority}" Width="*"/>

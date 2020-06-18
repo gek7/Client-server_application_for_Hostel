@@ -25,9 +25,9 @@
         <DataGrid x:Name="dg" Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding}" IsReadOnly="True" Grid.Column="0" SelectionMode="Single">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Имя" Width="*" Binding="{Binding Path=Surname}"/>
-                <DataGridTextColumn Header="Дата зачисления" Binding="{Binding Path=Ad,StringFormat='dd/MM/yyyy'}" Width="*"/>
+                <DataGridTextColumn Header="Дата вступления в должнсть" Binding="{Binding Path=Ad,StringFormat='dd/MM/yyyy'}" Width="*"/>
                 <DataGridTextColumn Header="Должность" Binding="{Binding Path=Post}" Width="*"/>
-                <DataGridTextColumn Header="Дата выпуска" Binding="{Binding Path=Finished,StringFormat='dd/MM/yyyy'}" Width="*"/>
+                <DataGridTextColumn Header="Дата увольнения" Binding="{Binding Path=Finished,StringFormat='dd/MM/yyyy'}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

@@ -70,6 +70,16 @@ namespace Client_serv.Dialogs
                 MessageBox.Show("Договор должен быть связан с комнатой");
                 return false;
             }
+            if (dpDocDate.SelectedDate == null)
+            {
+                MessageBox.Show("Договор должен быть заключён");
+                return false;
+            }
+            if (dpPlanBegDate.SelectedDate == null)
+            {
+                MessageBox.Show("Дата планируемого въезда должна быть!");
+                return false;
+            }
             if (dpDocDate.SelectedDate > dpAppDate.SelectedDate) 
             {
                 MessageBox.Show("Дата заключения не может быть больше даты расторжения");
@@ -139,8 +149,15 @@ namespace Client_serv.Dialogs
 
                 // Заполнение значениями комбобокс, в котором отображаются типы комнат
                 db.Rooms.Load();
-                cbRooms.ItemsSource = db.Rooms.Local;
-                cbRooms.DisplayMemberPath = "Num";
+                db.Buildings.Load();
+                var dbRooms = from i in db.Rooms.Local
+                              select new
+                              {
+                                  RoomID = i.RoomID,
+                                  NewNum = i.Num + " Комната " + i.Buildings.Name
+                              };
+                cbRooms.ItemsSource = dbRooms;
+                cbRooms.DisplayMemberPath = "NewNum";
                 cbRooms.SelectedValuePath = "RoomID";
                 if (cbRooms.Items.Count > 0) cbRooms.SelectedIndex = 0;
                 switch (CurMode)

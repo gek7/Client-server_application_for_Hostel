@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -69,9 +70,18 @@ namespace Client_serv.Dialogs
                 MessageBox.Show("Человек не может быть без пола! Выберите корпус");
                 return false;
             }
-            if (TbPhoneNumber.Text.Trim() == "")
+             Regex r = new Regex(@"[\d-()+]+");
+            var m = r.Matches(TbPhoneNumber.Text);
+            if (m.Count!=1 || m[0].Length!=TbPhoneNumber.Text.Length)
             {
-                MessageBox.Show("поле 'Номер телефона' должно быть заполнено");
+                MessageBox.Show("Поле 'Номер телефона' должно быть заполнено только цифрами,\n также допустимы символы -,+,(,)");
+                return false;
+            }
+             r = new Regex(@"^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$");
+             m = r.Matches(TbEmail.Text);
+            if (m.Count != 1 || m[0].Length != TbEmail.Text.Length)
+            {
+                MessageBox.Show("Поле 'почта' заполнена неправильно");
                 return false;
             }
             return true;

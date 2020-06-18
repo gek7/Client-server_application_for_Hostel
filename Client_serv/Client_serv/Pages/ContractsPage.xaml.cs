@@ -54,6 +54,7 @@ namespace Client_serv.Pages
                 h.People.Load();
                 h.Rooms.Load();
                 h.Contracts.Load();
+                h.Buildings.Load();
                 // var - неявный "тип", т.е неизвестный тип данных. Тип становится известным только после присвоения любого значения. 
                 // Присваивать значения нужно во время объявления переменной, иначе выдаст ошибку
                 var ContractsDB = from i in h.Contracts.Local
@@ -67,7 +68,7 @@ namespace Client_serv.Pages
                                       Priority = i.Priority,
                                       Signed = i.Signed,
                                       ActualEndDate = i.ActualEndDate,
-                                      Room = i.Rooms.Num,
+                                      Room = i.Rooms.Num+" Комната "+i.Rooms.Buildings.Name,
                                       AppDate = i.AppDate
                                 };
                 dg.SelectedValuePath = "id";

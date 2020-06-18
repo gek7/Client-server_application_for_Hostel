@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Client_serv"
         mc:Ignorable="d"
-        Title="Главное окно приложения основанного на Pages (demo)" Height="500" Width="900" MinWidth="900" MinHeight="325">
+        Title="Общежитие" Height="500" Width="900" MinWidth="900" MinHeight="325">
     <Grid x:Name="gr">
 
         <!-- Кол-во строк -->
@@ -24,14 +24,21 @@
 
         <Menu Grid.Row="0"  VerticalAlignment="Top">
             <MenuItem Header="Справочники">
+                <MenuItem Header="Договора" Click="table_contracts_Click"/>
                 <MenuItem Header="Корпуса" Click="Table_building_Click"/>
                 <MenuItem Header="Комнаты" Click="table_rooms_Click"/>
-                <MenuItem Header="Студенты"/>
+                <MenuItem Header="Виды помещений" Click="Table_RoomTypes_Click"/>
+                <MenuItem Header="Люди" Click="table_people_Click"/>
+                <MenuItem Header="Студенты" Click="table_students_Click"/>
+                <MenuItem Header="Работники" Click="table_workers_Click"/>
+                <MenuItem Header="Группы" Click="BtnGroups_Click"/>
+                <MenuItem Header="Должности" Click="Table_posts_Click"/>
+                <MenuItem Header="Две таблицы" Click="MultiTable_Click"/>
             </MenuItem>
             <MenuItem x:Name="close_app" Header="Выход" Click="close_app_Click"/>
         </Menu>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
-            <Button x:Name="table_contracts"  Margin="5,0,0,0" Width="80" Click="table_contracts_Click" Background="LightGreen">
+            <Button x:Name="table_contracts"  Margin="5,0,0,0" Width="80" Click="table_contracts_Click" >
                 <Grid Height="60">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"/>
@@ -49,7 +56,7 @@
             2-ая строка равная 20 пикселям - это текст
             -->
 
-            <Button x:Name="Table_building" Margin="5,0,0,0" Width="80" Click="Table_building_Click" Background="LightGreen">
+            <Button x:Name="Table_building" Margin="5,0,0,0" Width="80" Click="Table_building_Click" >
                 <Grid Height="60">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"/>
@@ -60,7 +67,7 @@
                 </Grid>
             </Button>
 
-            <Button   Margin="5,0,0,0" Click="table_rooms_Click" Width="80" Background="LightGreen" Focusable="False">
+            <Button   Margin="5,0,0,0" Click="table_rooms_Click" Width="80"  Focusable="False">
                 <Grid Height="60">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"/>
@@ -71,7 +78,7 @@
                 </Grid>
             </Button>
 
-            <Button x:Name="Table_RoomTypes"  Margin="5,0,0,0" Width="80" Click="Table_RoomTypes_Click" Background="LightGreen">
+            <Button x:Name="Table_RoomTypes"  Margin="5,0,0,0" Width="80" Click="Table_RoomTypes_Click" >
                 <Grid Height="60">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"/>
@@ -82,7 +89,7 @@
                 </Grid>
             </Button>
 
-            <Button x:Name="table_people" Margin="5,0,0,0" Width="80" Click="table_people_Click" Background="LightGreen">
+            <Button x:Name="table_people" Margin="5,0,0,0" Width="80" Click="table_people_Click" >
                 <Grid Height="60">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"/>
@@ -93,7 +100,7 @@
                 </Grid>
             </Button>
 
-            <Button x:Name="table_students"  Margin="5,0,0,0" Width="80" Click="table_students_Click" Background="LightGreen">
+            <Button x:Name="table_students"  Margin="5,0,0,0" Width="80" Click="table_students_Click" >
                 <Grid Height="60">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"/>
@@ -104,7 +111,7 @@
                 </Grid>
             </Button>
 
-            <Button x:Name="table_workers"  Margin="5,0,0,0" Width="80" Click="table_workers_Click" Background="LightGreen">
+            <Button x:Name="table_workers"  Margin="5,0,0,0" Width="80" Click="table_workers_Click" >
                 <Grid Height="60">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"/>
@@ -114,7 +121,7 @@
                     <TextBlock Text="Работники"  HorizontalAlignment="Center" Grid.Row="1"/>
                 </Grid>
             </Button>
-            <Button x:Name="BtnGroups"  Margin="5,0,0,0" Width="80" Click="BtnGroups_Click" Background="LightGreen" >
+            <Button x:Name="BtnGroups"  Margin="5,0,0,0" Width="80" Click="BtnGroups_Click"  >
                 <Grid Height="60">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"/>
@@ -125,7 +132,7 @@
                 </Grid>
             </Button>
 
-            <Button x:Name="Table_posts"  Margin="5,0,0,0" Width="80" Click="Table_posts_Click" Background="LightGreen">
+            <Button x:Name="Table_posts"  Margin="5,0,0,0" Width="80" Click="Table_posts_Click" >
                 <Grid Height="60">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"/>
@@ -135,14 +142,16 @@
                     <TextBlock Text="Должности"  HorizontalAlignment="Center" Grid.Row="1"/>
                 </Grid>
             </Button>
-            <Button x:Name="MultiTable" Width="80" Margin="5,0,0,0" Click="MultiTable_Click" Background="LightGreen">
+            <Button x:Name="MultiTable" Width="80" Margin="5,0,0,0" Click="MultiTable_Click" >
                 <Grid Height="60">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="40"/>
-                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="16"/>
+                        <RowDefinition Height="16"/>
                     </Grid.RowDefinitions>
-                    <Image Source="/Images/MultiTable.png" Width="35" Height="40" Grid.Row="0"  />
-                    <TextBlock Text="Две таблицы"  HorizontalAlignment="Center" Grid.Row="1"/>
+                    <Image Source="/Images/MultiTable.png" Width="35" Height="30" Grid.Row="0"  />
+                    <TextBlock Text="Корпуса"  HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center"/>
+                    <TextBlock Text="Комнаты"  HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center"/>
                 </Grid>
             </Button>
         </StackPanel>

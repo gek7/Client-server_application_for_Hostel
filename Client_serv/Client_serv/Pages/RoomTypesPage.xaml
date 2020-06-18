@@ -24,7 +24,7 @@
         </Button>
         <DataGrid x:Name="dg" Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding}" IsReadOnly="True" SelectionMode="Single">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Тип комнаты" Binding="{Binding Path=RoomType}" Width="*"/>
+                <DataGridTextColumn Header="Вид комнаты" Binding="{Binding Path=RoomType}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

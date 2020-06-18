@@ -69,6 +69,11 @@ namespace Client_serv.Dialogs
                 MessageBox.Show("Студент должен быть закреплён за какой-нибудь группой! Выберите группу!");
                 return false;
             }
+            if (dpAd.SelectedDate == null)
+            {
+                MessageBox.Show("Дата вступления в должность обязательно должна быть указана");
+                return false;
+            }
             return true;
         }
 

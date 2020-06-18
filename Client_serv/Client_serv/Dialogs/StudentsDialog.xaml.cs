@@ -59,6 +59,11 @@ namespace Client_serv.Dialogs
                 MessageBox.Show("За записью справочника студент должна быть закреплена запись из справочника люди!");
                 return false;
             }
+            if (dpAd.SelectedDate == null) 
+            {
+                MessageBox.Show("Дата зачисления обязательно должна быть указана");
+                return false;
+            }
             if (dpFinished.SelectedDate < dpAd.SelectedDate) 
             {
                 MessageBox.Show("Дата зачисления не может быть больше даты выпуска");
